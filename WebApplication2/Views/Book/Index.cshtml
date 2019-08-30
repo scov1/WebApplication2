@@ -1,0 +1,32 @@
+﻿
+@model List<WebApplication2.Books>
+@{
+    ViewBag.Title = "Index";
+}
+<h2>Index</h2>
+
+@Html.ActionLink("Создать", "CreateOrEdit", "Book")
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Название книги</th>
+            <th scope="col">Кол-во Страниц</th>
+            <th scope="col">Цена</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            @foreach (var item in Model)
+            {
+            <tr>
+                <th scope="row">@item.Title</th>
+                <th scope="row">@item.Pages</th>
+                <th scope="row">@item.Price</th>
+                <td scope="row">@Html.ActionLink("Edit book", "CreateOrEdit", "Book", new { id = @item.Id }, null)</td>
+                <td scope="row">@Html.ActionLink("Delete", "Delete", "Book", new { id = @item.Id }, null)</td>
+            </tr>
+
+        }
+    </table>
+
