@@ -14,9 +14,14 @@ namespace WebApplication2
         }
 
         public virtual DbSet<C__MigrationHistory> C__MigrationHistory { get; set; }
+
         public virtual DbSet<Authors> Authors { get; set; }
+
         public virtual DbSet<Books> Books { get; set; }
+
         public virtual DbSet<Orders> Orders { get; set; }
+
+        public virtual DbSet<Users> Users { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

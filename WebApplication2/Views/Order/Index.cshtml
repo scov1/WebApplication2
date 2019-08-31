@@ -1,7 +1,27 @@
 ﻿
-@{
-    ViewBag.Title = "Index";
-}
+@model List<WebApplication2.Entities.Orders>
 
-<h2>Index</h2>
 
+@Html.ActionLink("Создать", "EditOrCreateOrder", "Order")
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">User-ID</th>
+            <th scope="col">Book-ID</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            @foreach (var item in Model)
+            {
+        <tr>
+            <th scope="row">@item.UserId</th>
+            <th scope="row">@item.BookId</th>
+
+            <td scope="row">@Html.ActionLink("Edit", "EditOrCreateOrder", "Order", new { id = @item.Id }, null)</td>
+            <td scope="row">@Html.ActionLink("Delete", "Delete", "Order", new { id = @item.Id }, null)</td>
+        </tr>
+
+        }
+    </table>
