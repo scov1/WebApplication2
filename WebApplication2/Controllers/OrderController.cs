@@ -19,7 +19,7 @@ namespace WebApplication2.Controllers
                 orders = db.Orders.ToList();
             }
 
-            return View();
+            return View(orders);
         }
 
         [HttpGet]
@@ -45,8 +45,8 @@ namespace WebApplication2.Controllers
                 if (order.Id != 0)
                 {
                     var Oldorder = db.Orders.Where(x => x.Id == order.Id).FirstOrDefault();
-                    order.BookId = Oldorder.BookId;
-                    order.UserId = Oldorder.UserId;
+                    Oldorder.BookId = order.BookId;
+                    Oldorder.UserId = order.UserId;
                 }
 
                 else

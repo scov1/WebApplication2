@@ -131,18 +131,24 @@
     <Compile Include="Controllers\AuthorController.cs" />
     <Compile Include="Controllers\BookController.cs" />
     <Compile Include="Controllers\OrderController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Entities\Authors.cs" />
     <Compile Include="Entities\Books.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Entities\C__MigrationHistory.cs" />
     <Compile Include="Entities\Orders.cs" />
+    <Compile Include="Entities\Users.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Entities\Model1.cs" />
-    <Compile Include="Migrations\201908301219592_AddOrder.cs" />
-    <Compile Include="Migrations\201908301219592_AddOrder.Designer.cs">
-      <DependentUpon>201908301219592_AddOrder.cs</DependentUpon>
+    <Compile Include="Migrations\201908301228032_AddOrder.cs" />
+    <Compile Include="Migrations\201908301228032_AddOrder.Designer.cs">
+      <DependentUpon>201908301228032_AddOrder.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201908310439542_AddUsers.cs" />
+    <Compile Include="Migrations\201908310439542_AddUsers.Designer.cs">
+      <DependentUpon>201908310439542_AddUsers.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -188,11 +194,12 @@
     <Content Include="Views\Book\CreateOrEdit.cshtml" />
     <Content Include="Views\Order\Index.cshtml" />
     <Content Include="Views\Order\EditOrCreateOrder.cshtml" />
+    <Content Include="Views\User\Index.cshtml" />
+    <Content Include="Views\User\CreateOrEdit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
-    <Folder Include="Views\User\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -209,8 +216,11 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201908301219592_AddOrder.resx">
-      <DependentUpon>201908301219592_AddOrder.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201908301228032_AddOrder.resx">
+      <DependentUpon>201908301228032_AddOrder.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201908310439542_AddUsers.resx">
+      <DependentUpon>201908310439542_AddUsers.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

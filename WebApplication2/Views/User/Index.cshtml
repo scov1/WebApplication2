@@ -1,0 +1,26 @@
+﻿
+@model List<WebApplication2.Entities.Users>
+
+
+@Html.ActionLink("Создать", "CreateOrEdit", "User")
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">FIO</th>
+            <th scope="col">E-mail</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            @foreach (var item in Model)
+            {
+            <tr>
+                <th scope="row">@item.FIO</th>
+                <th scope="row">@item.Email</th>
+                <td scope="row">@Html.ActionLink("Edit user", "CreateOrEdit", "User", new { id = @item.Id }, null)</td>
+                <td scope="row">@Html.ActionLink("Delete", "Delete", "User", new { id = @item.Id }, null)</td>
+            </tr>
+
+        }
+    </table>
