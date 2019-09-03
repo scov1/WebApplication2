@@ -13,7 +13,6 @@ namespace WebApplication2
         {
         }
 
-        public virtual DbSet<C__MigrationHistory> C__MigrationHistory { get; set; }
 
         public virtual DbSet<Authors> Authors { get; set; }
 
