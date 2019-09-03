@@ -14,5 +14,9 @@ namespace WebApplication2.Entities
 
 
         public int UserId { get; set; }
+
+        public string AuthorName { get; set; }
+
+        public string BookName { get; set; }
     }
 }
