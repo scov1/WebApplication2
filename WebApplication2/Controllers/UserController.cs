@@ -14,25 +14,12 @@ namespace WebApplication2.Controllers
         {
             List<Users> users;
 
-            //List<Books> historyBooks = new List<Books>();
-
             using (Model1 db = new Model1())
             {
                 users = db.Users.ToList();
-
-                //ViewBag.Comment = "";
-
-                //var history = db.Orders.OrderByDescending(x => x.Id).Select(b => b.BookId).Distinct().Take(5).ToList();
-
-                //history.ForEach(
-                //    x =>
-                //    {
-                //        historyBooks.Add(db.Books.Where(a => a.Id == x).FirstOrDefault());
-                //    });
-                //ViewBag.BooksList = historyBooks;
             }
 
-                return View(users);
+            return View(users);
         }
 
         public ActionResult History()
@@ -41,15 +28,26 @@ namespace WebApplication2.Controllers
         }
 
         [HttpGet]
-        public ActionResult CreateOrEdit(int? id)
+        public ActionResult CreateOrEdit(int? id=0)
         {
             Users user = new Users();
 
-            if (id != null)
+            if (id == 0)
             {
                 using (Model1 db = new Model1())
                 {
                         user = db.Users.Where(x => x.Id == id).FirstOrDefault();
+                }
+            }
+            else
+            {
+                using (Model1 db = new Model1())
+                {
+
+                    ViewBag.Comment = "";
+                    List<Orders> historyBooks = db.Orders.Where(i => i.UserId == id).ToList();
+                    ViewBag.BooksList = historyBooks;
+                    ViewData["BookList"] = historyBooks;
                 }
             }
             return View(user);
