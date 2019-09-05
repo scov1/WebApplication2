@@ -1,5 +1,6 @@
 ﻿@model WebApplication2.Entities.Users
 
+
 @{
     ViewBag.Title = "CreateOrEdit";
 }
@@ -37,6 +38,10 @@
         </div>
     </div>
 }
+
+@*@Html.Partial("History", @ViewBag.BookList)*@
+
+@Html.Partial( "History",@ViewData["BookList"])
 
 <div>
     @Html.ActionLink("Back to List", "Index")

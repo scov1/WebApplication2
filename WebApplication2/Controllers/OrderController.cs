@@ -18,11 +18,12 @@ namespace WebApplication2.Controllers
             {
                 orders = db.Orders.ToList();
 
-
             }
 
             return View(orders);
         }
+
+
 
         [HttpGet]
         public ActionResult EditOrCreateOrder(int? id)

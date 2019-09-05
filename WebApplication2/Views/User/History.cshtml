@@ -12,34 +12,19 @@
             </tr>
         </thead>
 
-
-        @foreach (var item in ViewData["books"] as List<Orders>)
+        @foreach (var item in ViewData["BookList"] as List<Orders>)
         {
-            <dl class="dl-horizontal">
+            <tr class="dl-horizontal">
 
-                <dd>
-                    @Html.DisplayFor(modelItem => item.AuthorName)
-                </dd>
+                <td>
+                    @Html.DisplayFor(modelItem => @item.BookName)
+                </td>
 
+                <td>
+                    @Html.DisplayFor(modelItem => @item.AuthorName)
+                </td>
 
-                @*<dd>
-                    @Html.DisplayFor(model => model.UserId)
-                </dd>
-
-
-                <dd>
-                    @Html.DisplayFor(model => model.AuthorName)
-                </dd>*@
-
-                <dt>
-                    @Html.DisplayNameFor(modelItem => item.BookName)
-                </dt>
-
-                @*<dd>
-                    @Html.DisplayFor(model => model.BookName)
-                </dd>*@
-
-            </dl>
+            </tr>
         }
     </table>
 </div>
