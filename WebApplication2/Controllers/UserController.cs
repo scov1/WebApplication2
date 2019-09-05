@@ -12,14 +12,32 @@ namespace WebApplication2.Controllers
         // GET: User
         public ActionResult Index()
         {
-            List<Users> Users;
+            List<Users> users;
+
+            //List<Books> historyBooks = new List<Books>();
 
             using (Model1 db = new Model1())
             {
-                Users = db.Users.ToList();
+                users = db.Users.ToList();
+
+                //ViewBag.Comment = "";
+
+                //var history = db.Orders.OrderByDescending(x => x.Id).Select(b => b.BookId).Distinct().Take(5).ToList();
+
+                //history.ForEach(
+                //    x =>
+                //    {
+                //        historyBooks.Add(db.Books.Where(a => a.Id == x).FirstOrDefault());
+                //    });
+                //ViewBag.BooksList = historyBooks;
             }
 
-                return View(Users);
+                return View(users);
+        }
+
+        public ActionResult History()
+        {
+            return PartialView();
         }
 
         [HttpGet]
