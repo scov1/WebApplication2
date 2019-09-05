@@ -1,0 +1,46 @@
+﻿@using WebApplication2.Entities
+
+<div>
+    <h4>Orders</h4>
+    <hr />
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Автор</th>
+                <th scope="col">Книга</th>
+            </tr>
+        </thead>
+
+
+        @foreach (var item in ViewData["books"] as List<Orders>)
+        {
+            <dl class="dl-horizontal">
+
+                <dd>
+                    @Html.DisplayFor(modelItem => item.AuthorName)
+                </dd>
+
+
+                @*<dd>
+                    @Html.DisplayFor(model => model.UserId)
+                </dd>
+
+
+                <dd>
+                    @Html.DisplayFor(model => model.AuthorName)
+                </dd>*@
+
+                <dt>
+                    @Html.DisplayNameFor(modelItem => item.BookName)
+                </dt>
+
+                @*<dd>
+                    @Html.DisplayFor(model => model.BookName)
+                </dd>*@
+
+            </dl>
+        }
+    </table>
+</div>
+

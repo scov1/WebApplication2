@@ -17,6 +17,8 @@ namespace WebApplication2.Controllers
             using (Model1 db = new Model1())
             {
                 orders = db.Orders.ToList();
+
+
             }
 
             return View(orders);
