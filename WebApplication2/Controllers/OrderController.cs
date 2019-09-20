@@ -32,7 +32,7 @@ namespace WebApplication2.Controllers
             Orders order = new Orders();
 
 
-            if (id != null)
+            if (id == null)
                 using (Model1 db = new Model1())
                 {
                     SelectList users = new SelectList(db.Users.ToList(), "Id", "FIO");
