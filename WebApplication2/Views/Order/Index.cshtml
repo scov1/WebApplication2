@@ -1,5 +1,6 @@
 ﻿
-@model List<WebApplication2.Entities.Orders>
+@*@model List<WebApplication2.Entities.Orders>*@
+@model IEnumerable<WebApplication2.Entities.Orders>
 
 
 @Html.ActionLink("Создать", "EditOrCreateOrder", "Order")
@@ -16,14 +17,23 @@
         <tr>
             @foreach (var item in Model)
             {
-        <tr>
-            <th scope="row">@item.Id</th>
-            <th scope="row">@item.UserId</th>
-            <th scope="row">@item.BookId</th>
+            <tr>
+                <th scope="row">@item.Id</th>
+                <th scope="row">
+                    @{
+                        WebApplication2.Entities.Users user;
+                        using (Model1 db = new Model1())
+                        {
+                            user = db.Users.Where(a => a.Id == item.UserId).FirstOrDefault();
+                        }
+                    }
+                    @Html.DisplayFor(modelItem => user.FIO)
+                </th>
+                <th scope="row">@item.BookName</th>
 
-            <td scope="row">@Html.ActionLink("Edit", "EditOrCreateOrder", "Order", new { id = @item.Id }, null)</td>
-            <td scope="row">@Html.ActionLink("Delete", "Delete", "Order", new { id = @item.Id }, null)</td>
-        </tr>
+                <td scope="row">@Html.ActionLink("Edit", "EditOrCreateOrder", "Order", new { id = @item.Id }, null)</td>
+                <td scope="row">@Html.ActionLink("Delete", "Delete", "Order", new { id = @item.Id }, null)</td>
+            </tr>
 
         }
     </table>
