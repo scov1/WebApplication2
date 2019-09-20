@@ -24,11 +24,12 @@ namespace WebApplication2.Controllers
 
         public ActionResult History()
         {
+   
             return PartialView();
         }
 
         [HttpGet]
-        public ActionResult CreateOrEdit(int? id=0)
+        public ActionResult CreateOrEdit(int? id)
         {
             Users user = new Users();
 
@@ -36,7 +37,9 @@ namespace WebApplication2.Controllers
             {
                 using (Model1 db = new Model1())
                 {
-                        user = db.Users.Where(x => x.Id == id).FirstOrDefault();
+                    user = db.Users.Where(x => x.Id == id).FirstOrDefault();
+                    List<Orders> historyBooks = db.Orders.Where(i => i.UserId == id).ToList();
+                    ViewBag.BooksList = historyBooks;
                 }
             }
             else

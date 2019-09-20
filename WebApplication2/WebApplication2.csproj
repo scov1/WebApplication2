@@ -147,6 +147,10 @@
     <Compile Include="Migrations\201909031416489_AddNameBookAuthor.Designer.cs">
       <DependentUpon>201909031416489_AddNameBookAuthor.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201909201248041_test.cs" />
+    <Compile Include="Migrations\201909201248041_test.Designer.cs">
+      <DependentUpon>201909201248041_test.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -216,6 +220,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201909031416489_AddNameBookAuthor.resx">
       <DependentUpon>201909031416489_AddNameBookAuthor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909201248041_test.resx">
+      <DependentUpon>201909201248041_test.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
