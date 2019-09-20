@@ -16,6 +16,7 @@ namespace WebApplication2.Controllers
 
             using (Model1 db = new Model1())
             {
+
                 orders = db.Orders.ToList();
 
             }
@@ -34,7 +35,13 @@ namespace WebApplication2.Controllers
             if (id != null)
                 using (Model1 db = new Model1())
                 {
-                    order = db.Orders.Where(x => x.Id == id).FirstOrDefault();
+                    SelectList users = new SelectList(db.Users.ToList(), "Id", "FIO");
+                    ViewBag.Users = users;
+
+                    SelectList books = new SelectList(db.Books.ToList(), "Id", "Title");
+                    ViewBag.Books = books;
+
+                    //order = db.Orders.Where(x => x.Id == id).FirstOrDefault();
                 }
 
             return View(order);
@@ -45,6 +52,12 @@ namespace WebApplication2.Controllers
         {
             using (Model1 db = new Model1())
             {
+                SelectList users = new SelectList(db.Users.ToList(), "Id", "FIO");
+                ViewBag.Users = users;
+
+                SelectList books = new SelectList(db.Books.ToList(), "Id", "Title");
+                ViewBag.Books = books;
+
                 if (order.Id != 0)
                 {
                     var Oldorder = db.Orders.Where(x => x.Id == order.Id).FirstOrDefault();
