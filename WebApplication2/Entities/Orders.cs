@@ -11,17 +11,23 @@ namespace WebApplication2.Entities
     {
         public int Id { get; set; }
 
-        [Required]
-        [ForeignKey("Books")]
+        //[Required]
+        //[ForeignKey("Books")]
         public int BookId { get; set; }
 
-        [Required]
-        [ForeignKey("Users")]
+        //[Required]
+        //[ForeignKey("Users")]
         public int UserId { get; set; }
 
         public string AuthorName { get; set; }
 
         public string BookName { get; set; }
+
+        public DateTime CreateDate { get; set; }
+
+        public DateTime ReturnDate { get; set; }
+        
+        public int Period { get; set; }
 
         public Users Users { get; set; }
         public Books Books { get; set; }

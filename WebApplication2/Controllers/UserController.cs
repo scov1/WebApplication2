@@ -84,7 +84,7 @@ namespace WebApplication2.Controllers
                var user = db.Users.Where(x => x.Id == id).FirstOrDefault();
                 db.Users.Remove(user);
                 db.SaveChanges();
-            }
+            } 
             return RedirectToAction("Index", "User");
         }
     }
