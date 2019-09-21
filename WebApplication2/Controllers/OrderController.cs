@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Net.Mail;
 using System.Web;
 using System.Web.Mvc;
 using WebApplication2.Entities;
@@ -88,6 +90,42 @@ namespace WebApplication2.Controllers
             }
 
             return RedirectToAction("Index", "Order");
+        }
+
+        public ActionResult Link(Orders order)
+        {
+            Users user;
+
+            using (Model1 db = new Model1())
+            {
+                user = db.Users.Where(x => x.Id == order.Id).FirstOrDefault();
+            }
+
+            MailAddress from = new MailAddress("seda8888-92@mail.ru", "Верните книгу");
+            MailAddress to = new MailAddress(user.Email);
+            MailMessage m = new MailMessage(from, to);
+            m.Subject="Верните книгу";
+            m.Body = string.Format("Верните книгу,вы просрочили книгу");
+            m.IsBodyHtml = true;
+            SmtpClient smtp = new SmtpClient("smtp.mail.ru", 587);
+            smtp.Credentials = new NetworkCredential("seda8888-92@mail.ru", "seda8899");
+            smtp.EnableSsl = true;
+            smtp.Send(m);
+            return RedirectToAction("Index");
+
+        }
+
+        public ActionResult Download()
+        {
+            using (Model1 db = new Model1())
+            {
+                List<Orders> orders = db.Orders.ToList();
+                foreach (var item in orders)
+                {
+                    List<Users> users = db.Users.Where(a => a.Id == item.UserId).ToList();
+                }
+            }
+            return RedirectToAction("Index");
         }
     }
 }
