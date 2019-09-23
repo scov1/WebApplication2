@@ -9,6 +9,8 @@
         <tr>
             <th scope="col">Номер заказа</th>
             <th scope="col">Пользователь</th>
+            <th scope="col">Дата взятия книги</th>
+            <th scope="col">Дата возвращения книги</th>
             <th scope="col">Книга</th>
 
         </tr>
@@ -18,18 +20,12 @@
             @foreach (var item in Model)
             {
             <tr>
-                <th scope="row">@item.Id</th>
-                <th scope="row">
-                    @{
-                        WebApplication2.Entities.Users user;
-                        using (Model1 db = new Model1())
-                        {
-                            user = db.Users.Where(a => a.Id == item.UserId).FirstOrDefault();
-                        }
-                    }
-                    @Html.DisplayFor(modelItem => user.FIO)
-                </th>
-                <th scope="row">@item.BookName</th>
+                <td scope="row">@item.Id</td>
+                <td scope="row">@item.Users.FIO </td>
+                <td scope="row">@item.CreateDate</td>
+                <td scope="row">@item.ReturnDate</td>
+                <td scope="row">@item.BookName</td>
+                
 
                 <td scope="row">@Html.ActionLink("Edit", "EditOrCreateOrder", "Order", new { id = @item.Id }, null)</td>
                 <td scope="row">@Html.ActionLink("Delete", "Delete", "Order", new { id = @item.Id }, null)</td>

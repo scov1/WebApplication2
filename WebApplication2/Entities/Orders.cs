@@ -11,13 +11,15 @@ namespace WebApplication2.Entities
     {
         public int Id { get; set; }
 
-        //[Required]
-        //[ForeignKey("Books")]
+        [Required]
+        [ForeignKey("Books")]
         public int BookId { get; set; }
 
-        //[Required]
-        //[ForeignKey("Users")]
+        public Books Books { get; set; }
+        [Required]
+        [ForeignKey("Users")]
         public int UserId { get; set; }
+        public Users Users { get; set; }
 
         public string AuthorName { get; set; }
 
@@ -29,7 +31,6 @@ namespace WebApplication2.Entities
         
         public int Period { get; set; }
 
-        public Users Users { get; set; }
-        public Books Books { get; set; }
+
     }
 }
