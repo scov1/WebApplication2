@@ -20,6 +20,7 @@ namespace WebApplication2.Controllers
             {
 
                 orders = db.Orders.ToList();
+          
 
             }
 
@@ -65,8 +66,8 @@ namespace WebApplication2.Controllers
                     var Oldorder = db.Orders.Where(x => x.Id == order.Id).FirstOrDefault();
                     Oldorder.BookId = order.BookId;
                     Oldorder.UserId = order.UserId;
-                    Oldorder.AuthorName = order.AuthorName;
-                    Oldorder.BookName = order.BookName;
+                    //Oldorder.AuthorName = order.AuthorName;
+                    //Oldorder.BookName = order.BookName;
                 }
 
                 else

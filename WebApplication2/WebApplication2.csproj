@@ -145,13 +145,13 @@
     <Compile Include="Migrations\201909031416489_AddNameBookAuthor.Designer.cs">
       <DependentUpon>201909031416489_AddNameBookAuthor.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201909201248041_test.cs" />
-    <Compile Include="Migrations\201909201248041_test.Designer.cs">
-      <DependentUpon>201909201248041_test.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\201909210958441_AddDateBook.cs" />
     <Compile Include="Migrations\201909210958441_AddDateBook.Designer.cs">
       <DependentUpon>201909210958441_AddDateBook.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201909231406024_FixedDatabase.cs" />
+    <Compile Include="Migrations\201909231406024_FixedDatabase.Designer.cs">
+      <DependentUpon>201909231406024_FixedDatabase.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -223,11 +223,11 @@
     <EmbeddedResource Include="Migrations\201909031416489_AddNameBookAuthor.resx">
       <DependentUpon>201909031416489_AddNameBookAuthor.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201909201248041_test.resx">
-      <DependentUpon>201909201248041_test.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201909210958441_AddDateBook.resx">
       <DependentUpon>201909210958441_AddDateBook.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201909231406024_FixedDatabase.resx">
+      <DependentUpon>201909231406024_FixedDatabase.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
