@@ -1,8 +1,8 @@
-namespace WebApplication2.Migrations
+namespace DL.Migrations
 {
     using System;
     using System.Data.Entity.Migrations;
-    
+
     public partial class AddNameBookAuthor : DbMigration
     {
         public override void Up()
@@ -54,7 +54,7 @@ namespace WebApplication2.Migrations
                 .PrimaryKey(t => t.Id);
 
         }
-        
+
         public override void Down()
         {
             DropForeignKey("dbo.Books", "AuthorId", "dbo.Authors");
