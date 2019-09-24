@@ -1,8 +1,8 @@
-namespace WebApplication2.Migrations
+namespace DL.Migrations
 {
     using System;
     using System.Data.Entity.Migrations;
-    
+
     public partial class AddDateBook : DbMigration
     {
         public override void Up()
@@ -11,7 +11,7 @@ namespace WebApplication2.Migrations
             AddColumn("dbo.Orders", "ReturnDate", c => c.DateTime(nullable: false));
             AddColumn("dbo.Orders", "Period", c => c.Int(nullable: false));
         }
-        
+
         public override void Down()
         {
             DropColumn("dbo.Orders", "Period");

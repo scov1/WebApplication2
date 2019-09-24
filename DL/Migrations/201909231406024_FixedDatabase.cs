@@ -1,8 +1,8 @@
-namespace WebApplication2.Migrations
+namespace DL.Migrations
 {
     using System;
     using System.Data.Entity.Migrations;
-    
+
     public partial class FixedDatabase : DbMigration
     {
         public override void Up()
@@ -22,7 +22,7 @@ namespace WebApplication2.Migrations
             AddForeignKey("dbo.Orders", "BookId", "dbo.Books", "Id", cascadeDelete: true);
             AddForeignKey("dbo.Orders", "UserId", "dbo.Users", "Id", cascadeDelete: true);
         }
-        
+
         public override void Down()
         {
             DropForeignKey("dbo.Orders", "UserId", "dbo.Users");
