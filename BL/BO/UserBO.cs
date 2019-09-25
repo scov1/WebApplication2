@@ -10,40 +10,40 @@ using Unity;
 
 namespace BL.BO
 {
-    public class AuthorBO : BOBase<Authors>
+    public class UserBO : BOBase<Users>
     {
         private readonly IUnityContainer unityContainer;
 
         public int Id { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
+        public string FIO { get; set; }
+        public string Email { get; set; }
 
-        public AuthorBO(IMapper mapper, UnitOfWorkFactory<Authors> unitOfWorkFactory, IUnityContainer unityContainer)
+        public UserBO(IMapper mapper, UnitOfWorkFactory<Users> unitOfWorkFactory, IUnityContainer unityContainer)
             : base(mapper, unitOfWorkFactory)
         {
             this.unityContainer = unityContainer;
         }
 
-        public AuthorBO GetAuthorsListById(int? id)
+        public UserBO GetUsersListById(int? id)
         {
-            AuthorBO authors;
+            UserBO users;
 
             using (var unitOfWork = unitOfWorkFactory.Create())
             {
-                authors = unitOfWork.EntityRepository.GetAll().Where(a => a.Id == id).Select(item => mapper.Map<AuthorBO>(item)).FirstOrDefault();
+                users = unitOfWork.EntityRepository.GetAll().Where(u => u.Id == id).Select(item => mapper.Map<UserBO>(item)).FirstOrDefault();
             }
-            return authors;
+            return users;
         }
 
-        public List<AuthorBO> GetAuthorsList()
+        public List<UserBO> GetUsersList()
         {
-            List<AuthorBO> authors = new List<AuthorBO>();
+            List<UserBO> users = new List<UserBO>();
 
             using (var unitOfWork = unitOfWorkFactory.Create())
             {
-                authors = unitOfWork.EntityRepository.GetAll().Select(item => mapper.Map<AuthorBO>(item)).ToList();
+                users = unitOfWork.EntityRepository.GetAll().Select(item => mapper.Map<UserBO>(item)).ToList();
             }
-            return authors;
+            return users;
         }
 
         public void Save()
@@ -57,16 +57,16 @@ namespace BL.BO
             }
         }
 
-        void Create(IUnitOfWork<Authors> unitOfWork)
+        void Create(IUnitOfWork<Users> unitOfWork)
         {
-            var author = mapper.Map<Authors>(this);
+            var author = mapper.Map<Users>(this);
             unitOfWork.EntityRepository.Create(author);
             unitOfWork.Save();
         }
 
-        void Update(IUnitOfWork<Authors> unitOfWork)
+        void Update(IUnitOfWork<Users> unitOfWork)
         {
-            var author = mapper.Map<Authors>(this);
+            var author = mapper.Map<Users>(this);
             unitOfWork.EntityRepository.Update(author);
             unitOfWork.Save();
         }

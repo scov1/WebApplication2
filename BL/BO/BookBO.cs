@@ -10,40 +10,44 @@ using Unity;
 
 namespace BL.BO
 {
-    public class AuthorBO : BOBase<Authors>
+    public class BookBO : BOBase<Books>
     {
         private readonly IUnityContainer unityContainer;
 
         public int Id { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
+        public int? AuthorId { get; set; }
+        public string Title { get; set; }
+        public int? Pages { get; set; }
+        public int? Price { get; set; }
+        public int GenreId { get; set; }
+       
 
-        public AuthorBO(IMapper mapper, UnitOfWorkFactory<Authors> unitOfWorkFactory, IUnityContainer unityContainer)
+        public BookBO(IMapper mapper, UnitOfWorkFactory<Books> unitOfWorkFactory, IUnityContainer unityContainer)
             : base(mapper, unitOfWorkFactory)
         {
             this.unityContainer = unityContainer;
         }
 
-        public AuthorBO GetAuthorsListById(int? id)
+        public BookBO GetBooksListById(int? id)
         {
-            AuthorBO authors;
+            BookBO books;
 
             using (var unitOfWork = unitOfWorkFactory.Create())
             {
-                authors = unitOfWork.EntityRepository.GetAll().Where(a => a.Id == id).Select(item => mapper.Map<AuthorBO>(item)).FirstOrDefault();
+                books = unitOfWork.EntityRepository.GetAll().Where(a => a.Id == id).Select(item => mapper.Map<BookBO>(item)).FirstOrDefault();
             }
-            return authors;
+            return books;
         }
 
-        public List<AuthorBO> GetAuthorsList()
+        public List<BookBO> GetBooksList()
         {
-            List<AuthorBO> authors = new List<AuthorBO>();
+            List<BookBO> books = new List<BookBO>();
 
             using (var unitOfWork = unitOfWorkFactory.Create())
             {
-                authors = unitOfWork.EntityRepository.GetAll().Select(item => mapper.Map<AuthorBO>(item)).ToList();
+                books = unitOfWork.EntityRepository.GetAll().Select(item => mapper.Map<BookBO>(item)).ToList();
             }
-            return authors;
+            return books;
         }
 
         public void Save()
@@ -57,17 +61,17 @@ namespace BL.BO
             }
         }
 
-        void Create(IUnitOfWork<Authors> unitOfWork)
+        void Create(IUnitOfWork<Books> unitOfWork)
         {
-            var author = mapper.Map<Authors>(this);
-            unitOfWork.EntityRepository.Create(author);
+            var book = mapper.Map<Books>(this);
+            unitOfWork.EntityRepository.Create(book);
             unitOfWork.Save();
         }
 
-        void Update(IUnitOfWork<Authors> unitOfWork)
+        void Update(IUnitOfWork<Books> unitOfWork)
         {
-            var author = mapper.Map<Authors>(this);
-            unitOfWork.EntityRepository.Update(author);
+            var book = mapper.Map<Books>(this);
+            unitOfWork.EntityRepository.Update(book);
             unitOfWork.Save();
         }
 
