@@ -10,40 +10,43 @@ using Unity;
 
 namespace BL.BO
 {
-    public class AuthorBO : BOBase<Authors>
+    public class OrderBO : BOBase<Orders>
     {
         private readonly IUnityContainer unityContainer;
 
         public int Id { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
+        public virtual int UserId { get; set; }
+        public virtual int BookId { get; set; }
+        public DateTime CreationDate { get; set; }
+        public int Period { get; set; }
+        public DateTime? ReturnDate { get; set; }
 
-        public AuthorBO(IMapper mapper, UnitOfWorkFactory<Authors> unitOfWorkFactory, IUnityContainer unityContainer)
+        public OrderBO(IMapper mapper, UnitOfWorkFactory<Orders> unitOfWorkFactory, IUnityContainer unityContainer)
             : base(mapper, unitOfWorkFactory)
         {
             this.unityContainer = unityContainer;
         }
 
-        public AuthorBO GetAuthorsListById(int? id)
+        public OrderBO GetOrdersListById(int? id)
         {
-            AuthorBO authors;
+            OrderBO orders;
 
             using (var unitOfWork = unitOfWorkFactory.Create())
             {
-                authors = unitOfWork.EntityRepository.GetAll().Where(a => a.Id == id).Select(item => mapper.Map<AuthorBO>(item)).FirstOrDefault();
+                orders = unitOfWork.EntityRepository.GetAll().Where(o => o.Id == id).Select(item => mapper.Map<OrderBO>(item)).FirstOrDefault();
             }
-            return authors;
+            return orders;
         }
 
-        public List<AuthorBO> GetAuthorsList()
+        public List<OrderBO> GetOrdersList()
         {
-            List<AuthorBO> authors = new List<AuthorBO>();
+            List<OrderBO> orders = new List<OrderBO>();
 
             using (var unitOfWork = unitOfWorkFactory.Create())
             {
-                authors = unitOfWork.EntityRepository.GetAll().Select(item => mapper.Map<AuthorBO>(item)).ToList();
+                orders = unitOfWork.EntityRepository.GetAll().Select(item => mapper.Map<OrderBO>(item)).ToList();
             }
-            return authors;
+            return orders;
         }
 
         public void Save()
@@ -57,17 +60,17 @@ namespace BL.BO
             }
         }
 
-        void Create(IUnitOfWork<Authors> unitOfWork)
+        void Create(IUnitOfWork<Orders> unitOfWork)
         {
-            var author = mapper.Map<Authors>(this);
-            unitOfWork.EntityRepository.Create(author);
+            var order = mapper.Map<Orders>(this);
+            unitOfWork.EntityRepository.Create(order);
             unitOfWork.Save();
         }
 
-        void Update(IUnitOfWork<Authors> unitOfWork)
+        void Update(IUnitOfWork<Orders> unitOfWork)
         {
-            var author = mapper.Map<Authors>(this);
-            unitOfWork.EntityRepository.Update(author);
+            var order = mapper.Map<Orders>(this);
+            unitOfWork.EntityRepository.Update(order);
             unitOfWork.Save();
         }
 

@@ -10,40 +10,39 @@ using Unity;
 
 namespace BL.BO
 {
-    public class AuthorBO : BOBase<Authors>
+    public class GenreBO:BOBase<Genres>
     {
         private readonly IUnityContainer unityContainer;
 
         public int Id { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
+        public string Name { get; set; }
 
-        public AuthorBO(IMapper mapper, UnitOfWorkFactory<Authors> unitOfWorkFactory, IUnityContainer unityContainer)
-            : base(mapper, unitOfWorkFactory)
+        public GenreBO(IMapper mapper, UnitOfWorkFactory<Genres> unitOfWorkFactory, IUnityContainer unityContainer)
+           : base(mapper, unitOfWorkFactory)
         {
             this.unityContainer = unityContainer;
         }
 
-        public AuthorBO GetAuthorsListById(int? id)
+        public GenreBO GetGenreListById(int? id)
         {
-            AuthorBO authors;
+            GenreBO genres;
 
             using (var unitOfWork = unitOfWorkFactory.Create())
             {
-                authors = unitOfWork.EntityRepository.GetAll().Where(a => a.Id == id).Select(item => mapper.Map<AuthorBO>(item)).FirstOrDefault();
+                genres = unitOfWork.EntityRepository.GetAll().Where(a => a.Id == id).Select(item => mapper.Map<GenreBO>(item)).FirstOrDefault();
             }
-            return authors;
+            return genres;
         }
 
-        public List<AuthorBO> GetAuthorsList()
+        public List<GenreBO> GetGenreList()
         {
-            List<AuthorBO> authors = new List<AuthorBO>();
+            List<GenreBO> genres = new List<GenreBO>();
 
             using (var unitOfWork = unitOfWorkFactory.Create())
             {
-                authors = unitOfWork.EntityRepository.GetAll().Select(item => mapper.Map<AuthorBO>(item)).ToList();
+                genres = unitOfWork.EntityRepository.GetAll().Select(item => mapper.Map<GenreBO>(item)).ToList();
             }
-            return authors;
+            return genres;
         }
 
         public void Save()
@@ -57,17 +56,17 @@ namespace BL.BO
             }
         }
 
-        void Create(IUnitOfWork<Authors> unitOfWork)
+        void Create(IUnitOfWork<Genres> unitOfWork)
         {
-            var author = mapper.Map<Authors>(this);
-            unitOfWork.EntityRepository.Create(author);
+            var genre = mapper.Map<Genres>(this);
+            unitOfWork.EntityRepository.Create(genre);
             unitOfWork.Save();
         }
 
-        void Update(IUnitOfWork<Authors> unitOfWork)
+        void Update(IUnitOfWork<Genres> unitOfWork)
         {
-            var author = mapper.Map<Authors>(this);
-            unitOfWork.EntityRepository.Update(author);
+            var genre = mapper.Map<Genres>(this);
+            unitOfWork.EntityRepository.Update(genre);
             unitOfWork.Save();
         }
 
