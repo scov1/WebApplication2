@@ -46,17 +46,6 @@ namespace BL.BO
             return authors;
         }
 
-        public void Save()
-        {
-            using (var unitOfWork = unitOfWorkFactory.Create())
-            {
-                if (Id != 0)
-                    Update(unitOfWork);
-                else
-                    Create(unitOfWork);
-            }
-        }
-
         void Create(IUnitOfWork<Authors> unitOfWork)
         {
             var author = mapper.Map<Authors>(this);
@@ -69,6 +58,17 @@ namespace BL.BO
             var author = mapper.Map<Authors>(this);
             unitOfWork.EntityRepository.Update(author);
             unitOfWork.Save();
+        }
+
+        public void Save()
+        {
+            using (var unitOfWork = unitOfWorkFactory.Create())
+            {
+                if (Id != 0)
+                    Update(unitOfWork);
+                else
+                    Create(unitOfWork);
+            }
         }
 
         public void Delete(int id)

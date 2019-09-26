@@ -50,17 +50,6 @@ namespace BL.BO
             return books;
         }
 
-        public void Save()
-        {
-            using (var unitOfWork = unitOfWorkFactory.Create())
-            {
-                if (Id != 0)
-                    Update(unitOfWork);
-                else
-                    Create(unitOfWork);
-            }
-        }
-
         void Create(IUnitOfWork<Books> unitOfWork)
         {
             var book = mapper.Map<Books>(this);
@@ -73,6 +62,18 @@ namespace BL.BO
             var book = mapper.Map<Books>(this);
             unitOfWork.EntityRepository.Update(book);
             unitOfWork.Save();
+        }
+
+
+        public void Save()
+        {
+            using (var unitOfWork = unitOfWorkFactory.Create())
+            {
+                if (Id != 0)
+                    Update(unitOfWork);
+                else
+                    Create(unitOfWork);
+            }
         }
 
         public void Delete(int id)
