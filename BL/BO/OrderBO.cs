@@ -49,17 +49,6 @@ namespace BL.BO
             return orders;
         }
 
-        public void Save()
-        {
-            using (var unitOfWork = unitOfWorkFactory.Create())
-            {
-                if (Id != 0)
-                    Update(unitOfWork);
-                else
-                    Create(unitOfWork);
-            }
-        }
-
         void Create(IUnitOfWork<Orders> unitOfWork)
         {
             var order = mapper.Map<Orders>(this);
@@ -72,6 +61,17 @@ namespace BL.BO
             var order = mapper.Map<Orders>(this);
             unitOfWork.EntityRepository.Update(order);
             unitOfWork.Save();
+        }
+
+        public void Save()
+        {
+            using (var unitOfWork = unitOfWorkFactory.Create())
+            {
+                if (Id != 0)
+                    Update(unitOfWork);
+                else
+                    Create(unitOfWork);
+            }
         }
 
         public void Delete(int id)

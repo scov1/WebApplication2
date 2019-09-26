@@ -45,17 +45,6 @@ namespace BL.BO
             return genres;
         }
 
-        public void Save()
-        {
-            using (var unitOfWork = unitOfWorkFactory.Create())
-            {
-                if (Id != 0)
-                    Update(unitOfWork);
-                else
-                    Create(unitOfWork);
-            }
-        }
-
         void Create(IUnitOfWork<Genres> unitOfWork)
         {
             var genre = mapper.Map<Genres>(this);
@@ -68,6 +57,17 @@ namespace BL.BO
             var genre = mapper.Map<Genres>(this);
             unitOfWork.EntityRepository.Update(genre);
             unitOfWork.Save();
+        }
+
+        public void Save()
+        {
+            using (var unitOfWork = unitOfWorkFactory.Create())
+            {
+                if (Id != 0)
+                    Update(unitOfWork);
+                else
+                    Create(unitOfWork);
+            }
         }
 
         public void Delete(int id)
