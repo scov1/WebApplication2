@@ -20,7 +20,7 @@ namespace BL.BO
         public int? Pages { get; set; }
         public int? Price { get; set; }
         public int GenreId { get; set; }
-       
+        public byte[] ImageData { get; set; }
 
         public BookBO(IMapper mapper, UnitOfWorkFactory<Books> unitOfWorkFactory, IUnityContainer unityContainer)
             : base(mapper, unitOfWorkFactory)
