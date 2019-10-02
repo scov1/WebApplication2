@@ -102,7 +102,7 @@ namespace WebApplication2.Controllers
             var userList = userBO.GetUsersList();
             ViewBag.Users = userList.Select(m => mapper.Map<UserView>(m)).ToList();
 
-            return View();
+            return View(userList);
         }
 
         // GET: User/Edit/5
