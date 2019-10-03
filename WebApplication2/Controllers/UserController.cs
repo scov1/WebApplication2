@@ -101,8 +101,8 @@ namespace WebApplication2.Controllers
             var userBO = DependencyResolver.Current.GetService<UserBO>();
             var userList = userBO.GetUsersList();
             ViewBag.Users = userList.Select(m => mapper.Map<UserView>(m)).ToList();
-
-            return View(userList);
+            
+            return View(ViewBag.Users);
         }
 
         // GET: User/Edit/5
