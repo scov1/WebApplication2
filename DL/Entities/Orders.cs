@@ -27,9 +27,13 @@ namespace DL.Entities
 
         public DateTime CreateDate { get; set; }
 
+        [Required]
+        [DataType(DataType.Date)]
         public DateTime ReturnDate { get; set; }
 
-        public int Period { get; set; }
+        [Required]
+        [DataType(DataType.Date)]
+        public DateTime Period { get; set; }
 
 
     }

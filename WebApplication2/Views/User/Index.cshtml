@@ -1,8 +1,8 @@
 ﻿
 @*@model List<WebApplication2.Entities.Users>*@
+@model  List<WebApplication2.ViewModel.UserView>
 
-
-@Html.ActionLink("Создать", "CreateOrEdit", "User")
+@Html.ActionLink("Создать", "Edit", "User")
 
 
 
@@ -15,12 +15,12 @@
     </thead>
     <tbody>
         <tr>
-            @foreach (var item in Model)
+            @foreach (var item in ViewBag.Users)
             {
             <tr>
                 <th scope="row">@item.FIO</th>
                 <th scope="row">@item.Email</th>
-                <td scope="row">@Html.ActionLink("Edit user", "CreateOrEdit", "User", new { id = @item.Id }, null)</td>
+                <td scope="row">@Html.ActionLink("Edit user", "Edit", "User", new { id = @item.Id }, null)</td>
                 <td scope="row">@Html.ActionLink("Delete", "Delete", "User", new { id = @item.Id }, null)</td>
             </tr>
 

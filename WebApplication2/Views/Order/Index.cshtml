@@ -1,9 +1,11 @@
 ﻿
 @*@model List<WebApplication2.Entities.Orders>*@
-@model IEnumerable<WebApplication2.Entities.Orders>
+@*@model IEnumerable<WebApplication2.Entities.Orders>*@
+
+@model WebApplication2.ViewModel.BookView
 
 
-@Html.ActionLink("Создать", "EditOrCreateOrder", "Order")
+@Html.ActionLink("Создать", "Edit", "Order")
 <table class="table">
     <thead>
         <tr>
@@ -17,7 +19,7 @@
     </thead>
     <tbody>
         <tr>
-            @foreach (var item in Model)
+            @foreach (var item in ViewBag.Orders)
             {
             <tr>
                 <td scope="row">@item.Id</td>
@@ -27,7 +29,7 @@
                 <td scope="row">@item.BookName</td>
                 
 
-                <td scope="row">@Html.ActionLink("Edit", "EditOrCreateOrder", "Order", new { id = @item.Id }, null)</td>
+                <td scope="row">@Html.ActionLink("Edit", "Edit", "Order", new { id = @item.Id }, null)</td>
                 <td scope="row">@Html.ActionLink("Delete", "Delete", "Order", new { id = @item.Id }, null)</td>
             </tr>
 

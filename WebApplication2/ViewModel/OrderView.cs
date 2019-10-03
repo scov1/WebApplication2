@@ -11,7 +11,7 @@ namespace WebApplication2.ViewModel
         public virtual int UserId { get; set; }
         public virtual int BookId { get; set; }
         public DateTime CreationDate { get; set; }
-        public int Period { get; set; }
+        public DateTime Period { get; set; }
         public DateTime? ReturnDate { get; set; }
     }
 }

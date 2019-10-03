@@ -18,7 +18,7 @@ namespace BL.BO
         public virtual int UserId { get; set; }
         public virtual int BookId { get; set; }
         public DateTime CreationDate { get; set; }
-        public int Period { get; set; }
+        public DateTime Period { get; set; }
         public DateTime? ReturnDate { get; set; }
 
         public OrderBO(IMapper mapper, UnitOfWorkFactory<Orders> unitOfWorkFactory, IUnityContainer unityContainer)

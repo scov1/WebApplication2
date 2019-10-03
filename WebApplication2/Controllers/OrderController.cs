@@ -159,7 +159,8 @@ namespace WebApplication2.Controllers
             var bookBO = DependencyResolver.Current.GetService<BookBO>();
 
             var orderBO = DependencyResolver.Current.GetService<OrderBO>();
-            var model = mapper.Map<OrderView>(orderBO);
+            var OrdersView = orderBO.GetOrdersListById(id);
+            var model = mapper.Map<OrderView>(OrdersView);
 
             if (id != null)
             {
@@ -183,14 +184,14 @@ namespace WebApplication2.Controllers
             if (model.Id == 0)
             {
                 var allow = orderBO.GetOrdersList().Select(m => mapper.Map<OrderView>(m)).Where(o => o.UserId == model.UserId).ToList();
-                //var list = allow.Where(a => a.Period < DateTime.Today && a.CreationDate == a.ReturnDate).ToList();
+                var list = allow.Where(a => a.Period < DateTime.Today && a.CreationDate == a.ReturnDate).ToList();
 
-                //if (list.Count == 0)
-                //{
+                if (list.Count == 0)
+                {
                     orderBO.CreationDate = DateTime.Today;
                     if (model.ReturnDate == null) orderBO.ReturnDate = DateTime.Today;
                     orderBO.Save();
-                //}
+                }
             }
             else
             {
