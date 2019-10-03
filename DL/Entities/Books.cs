@@ -29,5 +29,6 @@ namespace DL.Entities
         public virtual Genres Genres { get; set; }
 
         public byte[] ImageData { get; set; }
+
     }
 }
