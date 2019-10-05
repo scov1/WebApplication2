@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DL.Entities
 {
-   public partial class Genres
+   public  class Genres
     {
         public int Id { get; set; }
         public string Name { get; set; }

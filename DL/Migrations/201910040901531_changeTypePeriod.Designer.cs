@@ -7,13 +7,13 @@ namespace DL.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class fixedRetunBook : IMigrationMetadata
+    public sealed partial class changeTypePeriod : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(fixedRetunBook));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(changeTypePeriod));
         
         string IMigrationMetadata.Id
         {
-            get { return "201910031326590_fixedRetunBook"; }
+            get { return "201910040901531_changeTypePeriod"; }
         }
         
         string IMigrationMetadata.Source

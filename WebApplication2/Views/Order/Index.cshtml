@@ -6,6 +6,11 @@
 
 
 @Html.ActionLink("Создать", "Edit", "Order")
+
+<div style="display:inline-block; margin-left:50px;">
+    @Html.ActionLink("Get list of deadlines", "FileDeadline")
+</div>
+
 <table class="table">
     <thead>
         <tr>
@@ -21,17 +26,25 @@
         <tr>
             @foreach (var item in ViewBag.Orders)
             {
-            <tr>
-                <td scope="row">@item.Id</td>
-                <td scope="row">@item.Users.FIO </td>
-                <td scope="row">@item.CreateDate</td>
-                <td scope="row">@item.ReturnDate</td>
-                <td scope="row">@item.BookName</td>
-                
+        <tr>
+            <td scope="row">@item.Id</td>
+            <td scope="row">@item.Users.FIO </td>
+            <td scope="row">@item.CreateDate</td>
+            <td scope="row">@item.ReturnDate</td>
+            <td scope="row">@item.BookName</td>
 
-                <td scope="row">@Html.ActionLink("Edit", "Edit", "Order", new { id = @item.Id }, null)</td>
-                <td scope="row">@Html.ActionLink("Delete", "Delete", "Order", new { id = @item.Id }, null)</td>
-            </tr>
+            @if (@item.ReturnDate != @item.CreationDate)
+            {
+                <td scope="row">@item.ReturnDate</td>
+            }
+            else
+            {
+                <td scope="row">@Html.ActionLink("Send notification", "SendEmail", "Order", new { id = @item.Id }, null)</td>
+            }
+
+            <td scope="row">@Html.ActionLink("Edit", "Edit", "Order", new { id = @item.Id }, null)</td>
+            <td scope="row">@Html.ActionLink("Delete", "Delete", "Order", new { id = @item.Id }, null)</td>
+        </tr>
 
         }
     </table>

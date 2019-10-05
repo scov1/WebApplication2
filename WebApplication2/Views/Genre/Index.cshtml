@@ -1,0 +1,29 @@
+﻿@model WebApplication2.ViewModel.GenreView
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+
+@Html.ActionLink("Создать", "Edit")
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Название жанра</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            @foreach (var item in ViewBag.Genres)
+            {
+                <tr>
+                    <th scope="row">@item.Name</th>
+
+                    <td scope="row">@Html.ActionLink("Edit book", "Edit", "Genre", new { id = @item.Id }, null)</td>
+                    <td scope="row">@Html.ActionLink("Delete", "Delete", "Genre", new { id = @item.Id }, null)</td>
+                </tr>
+             }
+    </table>

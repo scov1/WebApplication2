@@ -74,6 +74,18 @@ namespace WebApplication2.App_Start
 
                 cfg.CreateMap<OrderBO, Orders>()
                 .ConstructUsing(item => DependencyResolver.Current.GetService<Orders>());
+
+                cfg.CreateMap<Genres, GenreBO>()//.ForMember(t=> t.Id, to => to.Ignore())
+               .ConstructUsing(item => DependencyResolver.Current.GetService<GenreBO>());
+
+                cfg.CreateMap<GenreBO, GenreView>()
+                .ConstructUsing(item => DependencyResolver.Current.GetService<GenreView>());
+
+                cfg.CreateMap<GenreView, GenreBO>()
+                .ConstructUsing(item => DependencyResolver.Current.GetService<GenreBO>());
+
+                cfg.CreateMap<GenreBO, Genres>()
+                .ConstructUsing(item => DependencyResolver.Current.GetService<Genres>());
             }
             );
         }
