@@ -245,7 +245,7 @@ namespace WebApplication2.Controllers
             var orderBO = DependencyResolver.Current.GetService<OrderBO>().GetOrdersList();
             var userBO = DependencyResolver.Current.GetService<UserBO>();
 
-            //deadlines = orderBO.Select(m => mapper.Map<OrderView>(m)).Where(o => o.CreationDate == o.ReturnDate && DateTime.Today > o.Deadline).ToList();
+            deadlines = orderBO.Select(m => mapper.Map<OrderView>(m)).Where(o => o.CreationDate == o.ReturnDate && DateTime.Today > o.Period).ToList();
             string path = @"C:\Test\deadline.txt";
 
             using (FileStream fs = new FileStream(path, FileMode.OpenOrCreate))
@@ -256,7 +256,7 @@ namespace WebApplication2.Controllers
                     {
                         var user = mapper.Map<UserView>(userBO.GetUsersListById(item.UserId));
                         string fio = user.FIO;
-                        //sw.WriteLine($"User: {fio}   CreationDate: {item.CreationDate}  Deadline: {item.Deadline}");
+                        sw.WriteLine($"User: {fio}   CreationDate: {item.CreationDate}  Deadline: {item.Period}");
                     }
                 }
             }

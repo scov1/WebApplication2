@@ -23,7 +23,7 @@ namespace BL.BO
             this.unityContainer = unityContainer;
         }
 
-        public GenreBO GetGenreListById(int? id)
+        public GenreBO GetGenresListById(int? id)
         {
             GenreBO genres;
 
@@ -34,6 +34,7 @@ namespace BL.BO
             return genres;
         }
 
+ 
         public List<GenreBO> GetGenreList()
         {
             List<GenreBO> genres = new List<GenreBO>();

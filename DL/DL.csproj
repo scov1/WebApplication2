@@ -81,13 +81,9 @@
     <Compile Include="Migrations\201909271132008_addImageBook.Designer.cs">
       <DependentUpon>201909271132008_addImageBook.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201910031326590_fixedRetunBook.cs" />
-    <Compile Include="Migrations\201910031326590_fixedRetunBook.Designer.cs">
-      <DependentUpon>201910031326590_fixedRetunBook.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201910031416360_fixedPeriod3.cs" />
-    <Compile Include="Migrations\201910031416360_fixedPeriod3.Designer.cs">
-      <DependentUpon>201910031416360_fixedPeriod3.cs</DependentUpon>
+    <Compile Include="Migrations\201910040901531_changeTypePeriod.cs" />
+    <Compile Include="Migrations\201910040901531_changeTypePeriod.Designer.cs">
+      <DependentUpon>201910040901531_changeTypePeriod.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -117,11 +113,8 @@
     <EmbeddedResource Include="Migrations\201909271132008_addImageBook.resx">
       <DependentUpon>201909271132008_addImageBook.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201910031326590_fixedRetunBook.resx">
-      <DependentUpon>201910031326590_fixedRetunBook.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201910031416360_fixedPeriod3.resx">
-      <DependentUpon>201910031416360_fixedPeriod3.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201910040901531_changeTypePeriod.resx">
+      <DependentUpon>201910040901531_changeTypePeriod.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
