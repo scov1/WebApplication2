@@ -139,15 +139,39 @@ namespace WebApplication2.Controllers
             this.mapper = mapper;
         }
 
-        public ActionResult Index()
+        public ActionResult Index(string sort)
         {
+            //var orderBO = DependencyResolver.Current.GetService<OrderBO>();
+            //var userBO = DependencyResolver.Current.GetService<UserBO>();
+            //var bookBO = DependencyResolver.Current.GetService<BookBO>();
+
+            //ViewBag.Orders = orderBO.GetOrdersList().Select(m => mapper.Map<OrderView>(m)).ToList();
+            //ViewBag.Users = userBO.GetUsersList().Select(m => mapper.Map<UserView>(m)).ToList();
+            //ViewBag.Books = bookBO.GetBooksList().Select(m => mapper.Map<BookView>(m)).ToList();
+
+            //return View();
             var orderBO = DependencyResolver.Current.GetService<OrderBO>();
             var userBO = DependencyResolver.Current.GetService<UserBO>();
             var bookBO = DependencyResolver.Current.GetService<BookBO>();
 
-            ViewBag.Orders = orderBO.GetOrdersList().Select(m => mapper.Map<OrderView>(m)).ToList();
             ViewBag.Users = userBO.GetUsersList().Select(m => mapper.Map<UserView>(m)).ToList();
             ViewBag.Books = bookBO.GetBooksList().Select(m => mapper.Map<BookView>(m)).ToList();
+
+            if (Request.IsAjaxRequest())
+            {
+                if (sort == "Creation Date")
+                {
+                    var orders = orderBO.GetOrdersList().Select(m => mapper.Map<OrderView>(m)).ToList();
+                    ViewBag.Orders = orders.OrderBy(o => o.CreationDate);
+                }
+                else if (sort == "None")
+                    ViewBag.Orders = orderBO.GetOrdersList().Select(m => mapper.Map<OrderView>(m)).ToList();
+                return PartialView("Partial/OrderPartialView");
+            }
+            else
+            {
+                ViewBag.Orders = orderBO.GetOrdersList().Select(m => mapper.Map<OrderView>(m)).ToList();
+            }
 
             return View();
         }
