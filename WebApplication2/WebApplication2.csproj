@@ -222,6 +222,7 @@
     <Content Include="Views\User\Edit.cshtml" />
     <Content Include="Views\Genre\Index.cshtml" />
     <Content Include="Views\Genre\Edit.cshtml" />
+    <Content Include="Views\Order\Partial\OrderPartialView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

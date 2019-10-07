@@ -25,11 +25,12 @@ namespace DL.Entities
 
         public string BookName { get; set; }
 
+        [Required]
         public DateTime CreateDate { get; set; }
 
         [Required]
         [DataType(DataType.Date)]
-        public DateTime ReturnDate { get; set; }
+        public DateTime? ReturnDate { get; set; }
 
         [Required]
         [DataType(DataType.Date)]

@@ -1,50 +1,71 @@
-﻿
-@*@model List<WebApplication2.Entities.Orders>*@
-@*@model IEnumerable<WebApplication2.Entities.Orders>*@
-
-@model WebApplication2.ViewModel.BookView
-
-
-@Html.ActionLink("Создать", "Edit", "Order")
-
+﻿@{
+    ViewBag.Title = "Index";
+    List<WebApplication2.ViewModel.UserView> users = ViewBag.Users;
+    List<WebApplication2.ViewModel.BookView> books = ViewBag.Books;
+}
+@Html.ActionLink("Create order", "Edit")
+<h2>Orders</h2>
 <div style="display:inline-block; margin-left:50px;">
     @Html.ActionLink("Get list of deadlines", "FileDeadline")
 </div>
+<div>
+    @*<a onclick="Change()">Sort by creation date</a>*@
+    <label>Sort by </label>
+    <select id="sort">
+        <option value="None">None</option>
+        <option value="Creation Date">Creation Date</option>
+    </select>
+</div>
+<script src="http://code.jquery.com/jquery-3.1.1.min.js"></script>
+<script type="text/javascript">
+    $("#sort").change(function () {
+        console.log("lkf");
+        $.ajax({
+            url: '@Url.Action("Index")',
+            method: 'GET',
+            data: {
+                sort: $("#sort").val()
+            },
+            success: function (data) {
+                $("#orderList").html(data);
+            }
+        })
+    })
+</script>
+<div id="orderList">
+    @Html.Partial("Partial/OrderPartialView")
+</div>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th scope="col">Номер заказа</th>
-            <th scope="col">Пользователь</th>
-            <th scope="col">Дата взятия книги</th>
-            <th scope="col">Дата возвращения книги</th>
-            <th scope="col">Книга</th>
-
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
+@*<table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">User</th>
+                <th scope="col">Book</th>
+                <th scope="col">Creation date</th>
+                <th scope="col">Deadline</th>
+                <th scope="col">Return date</th>
+            </tr>
+        </thead>
+        <tbody>
             @foreach (var item in ViewBag.Orders)
             {
-        <tr>
-            <td scope="row">@item.Id</td>
-            <td scope="row">@item.Users.FIO </td>
-            <td scope="row">@item.CreateDate</td>
-            <td scope="row">@item.ReturnDate</td>
-            <td scope="row">@item.BookName</td>
-
-            @if (@item.ReturnDate != @item.CreationDate)
-            {
-                <td scope="row">@item.ReturnDate</td>
+                string user = users.Where(u => u.Id == item.UserId).First().FIO;
+                string book = books.Where(b => b.Id == item.BookId).First().Title;
+                <tr>
+                    <td scope="row">@user</td>
+                    <td scope="row">@book</td>
+                    <td scope="row">@item.CreationDate</td>
+                    <td scope="row">@item.Deadline</td>
+                    @if (@item.ReturnDate != @item.CreationDate)
+                    {
+                        <td scope="row">@item.ReturnDate</td>
+                    }
+                    else
+                    {
+                        <td scope="row">@Html.ActionLink("Send notification", "SendEmail", "Order", new { id = @item.Id }, null)</td>
+                    }
+                    <td scope="row">@Html.ActionLink("Edit order", "Edit", "Order", new { id = @item.Id }, null)</td>
+                    <td scope="row">@Html.ActionLink("Delete order", "Delete", "Order", new { id = @item.Id }, null)</td>
+                </tr>
             }
-            else
-            {
-                <td scope="row">@Html.ActionLink("Send notification", "SendEmail", "Order", new { id = @item.Id }, null)</td>
-            }
-
-            <td scope="row">@Html.ActionLink("Edit", "Edit", "Order", new { id = @item.Id }, null)</td>
-            <td scope="row">@Html.ActionLink("Delete", "Delete", "Order", new { id = @item.Id }, null)</td>
-        </tr>
-
-        }
-    </table>
+    </table>*@
