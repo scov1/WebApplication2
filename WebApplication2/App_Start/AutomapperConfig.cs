@@ -25,7 +25,7 @@ namespace WebApplication2.App_Start
             return new MapperConfiguration(cfg =>
             {
                 cfg.CreateMap<Authors, AuthorBO>()//.ForMember(t=> t.Id, to => to.Ignore())
-                .ConstructUsing(item => DependencyResolver.Current.GetService<AuthorBO>());
+    .ConstructUsing(item => DependencyResolver.Current.GetService<AuthorBO>());
 
                 cfg.CreateMap<AuthorBO, AuthorView>()
                 .ConstructUsing(item => DependencyResolver.Current.GetService<AuthorView>());
@@ -75,8 +75,9 @@ namespace WebApplication2.App_Start
                 cfg.CreateMap<OrderBO, Orders>()
                 .ConstructUsing(item => DependencyResolver.Current.GetService<Orders>());
 
+
                 cfg.CreateMap<Genres, GenreBO>()//.ForMember(t=> t.Id, to => to.Ignore())
-               .ConstructUsing(item => DependencyResolver.Current.GetService<GenreBO>());
+                .ConstructUsing(item => DependencyResolver.Current.GetService<GenreBO>());
 
                 cfg.CreateMap<GenreBO, GenreView>()
                 .ConstructUsing(item => DependencyResolver.Current.GetService<GenreView>());

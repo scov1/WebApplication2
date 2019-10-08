@@ -179,12 +179,30 @@ namespace WebApplication2.Controllers
         // GET: Order/Edit/5
         public ActionResult Edit(int? id)
         {
+            //var userBO = DependencyResolver.Current.GetService<UserBO>();
+            //var bookBO = DependencyResolver.Current.GetService<BookBO>();
+
+            //var orderBO = DependencyResolver.Current.GetService<OrderBO>();
+            //var OrdersView = orderBO.GetOrdersListById(id);
+            //var model = mapper.Map<OrderView>(OrdersView);
+
+            //if (id != null)
+            //{
+            //    var orderBOList = orderBO.GetOrdersListById(id);
+            //    model = mapper.Map<OrderView>(orderBOList);
+            //    ViewBag.Message = "Edit";
+            //}
+            //else ViewBag.Message = "Create";
+
+            //ViewBag.Users = new SelectList(userBO.GetUsersList().Select(m => mapper.Map<UserView>(m)).ToList(), "Id", "FIO");
+            //ViewBag.Books = new SelectList(bookBO.GetBooksList().Select(m => mapper.Map<BookView>(m)).ToList(), "Id", "Title");
+
+            //return View(model);
             var userBO = DependencyResolver.Current.GetService<UserBO>();
             var bookBO = DependencyResolver.Current.GetService<BookBO>();
 
             var orderBO = DependencyResolver.Current.GetService<OrderBO>();
-            var OrdersView = orderBO.GetOrdersListById(id);
-            var model = mapper.Map<OrderView>(OrdersView);
+            var model = mapper.Map<OrderView>(orderBO);
 
             if (id != null)
             {
@@ -193,6 +211,8 @@ namespace WebApplication2.Controllers
                 ViewBag.Message = "Edit";
             }
             else ViewBag.Message = "Create";
+
+            model.ReturnDate = null;
 
             ViewBag.Users = new SelectList(userBO.GetUsersList().Select(m => mapper.Map<UserView>(m)).ToList(), "Id", "FIO");
             ViewBag.Books = new SelectList(bookBO.GetBooksList().Select(m => mapper.Map<BookView>(m)).ToList(), "Id", "Title");
@@ -204,6 +224,28 @@ namespace WebApplication2.Controllers
         [HttpPost]
         public ActionResult Edit(OrderView model)
         {
+            //var orderBO = mapper.Map<OrderBO>(model);
+            //if (model.Id == 0)
+            //{
+            //    var allow = orderBO.GetOrdersList().Select(m => mapper.Map<OrderView>(m)).Where(o => o.UserId == model.UserId).ToList();
+            //    var list = allow.Where(a => a.Period < DateTime.Today && a.CreationDate == a.ReturnDate).ToList();
+
+            //    if (list.Count == 0)
+            //    {
+            //        orderBO.CreationDate = DateTime.Today;
+            //        if (model.ReturnDate == null) orderBO.ReturnDate = DateTime.Today;
+            //        orderBO.Save();
+            //    }
+            //}
+            //else
+            //{
+            //    orderBO.CreationDate = DateTime.Today;
+            //    if (model.ReturnDate == null) orderBO.ReturnDate = DateTime.Today;
+            //    orderBO.Save();
+            //}
+
+            //return RedirectToActionPermanent("Index", "Order");
+
             var orderBO = mapper.Map<OrderBO>(model);
 
             if (model.Id == 0)
@@ -214,14 +256,13 @@ namespace WebApplication2.Controllers
                 if (list.Count == 0)
                 {
                     orderBO.CreationDate = DateTime.Today;
-                    if (model.ReturnDate == null) orderBO.ReturnDate = DateTime.Today;
+                    if (model.ReturnDate == null) orderBO.ReturnDate = orderBO.CreationDate;
                     orderBO.Save();
                 }
             }
             else
             {
-                orderBO.CreationDate = DateTime.Today;
-                if (model.ReturnDate == null) orderBO.ReturnDate = DateTime.Today;
+                if (model.ReturnDate == null) orderBO.ReturnDate = orderBO.CreationDate;
                 orderBO.Save();
             }
 
@@ -281,7 +322,7 @@ namespace WebApplication2.Controllers
                     {
                         var user = mapper.Map<UserView>(userBO.GetUsersListById(item.UserId));
                         string fio = user.FIO;
-                        sw.WriteLine($"User: {fio}   CreationDate: {item.CreationDate}  Deadline: {item.Period}");
+                        sw.WriteLine($"User: {fio}   CreationDate: {item.CreationDate}  Period: {item.Period}");
                     }
                 }
             }
