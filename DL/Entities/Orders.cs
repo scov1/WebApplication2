@@ -21,11 +21,8 @@ namespace DL.Entities
         public int UserId { get; set; }
         public Users Users { get; set; }
 
-        public string AuthorName { get; set; }
-
-        public string BookName { get; set; }
-
         [Required]
+        [DataType(DataType.Date)]
         public DateTime CreateDate { get; set; }
 
         [Required]

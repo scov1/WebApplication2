@@ -247,6 +247,7 @@ namespace WebApplication2.Controllers
             //return RedirectToActionPermanent("Index", "Order");
 
             var orderBO = mapper.Map<OrderBO>(model);
+
             if (model.Id == 0)
             {
                 var allow = orderBO.GetOrdersList().Select(m => mapper.Map<OrderView>(m)).Where(o => o.UserId == model.UserId).ToList();

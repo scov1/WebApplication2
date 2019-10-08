@@ -46,7 +46,7 @@ namespace BL.BO
             return genres;
         }
 
-        void Create(IUnitOfWork<Genres> unitOfWork)
+        void Add(IUnitOfWork<Genres> unitOfWork)
         {
             var genre = mapper.Map<Genres>(this);
             unitOfWork.EntityRepository.Create(genre);
@@ -67,7 +67,7 @@ namespace BL.BO
                 if (Id != 0)
                     Update(unitOfWork);
                 else
-                    Create(unitOfWork);
+                    Add(unitOfWork);
             }
         }
 

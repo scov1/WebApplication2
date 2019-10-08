@@ -49,9 +49,10 @@ namespace BL.BO
             return orders;
         }
 
-        void Create(IUnitOfWork<Orders> unitOfWork)
+        void Add(IUnitOfWork<Orders> unitOfWork)
         {
             var order = mapper.Map<Orders>(this);
+            order.CreateDate = DateTime.Now;
             unitOfWork.EntityRepository.Create(order);
             unitOfWork.Save();
         }
@@ -70,7 +71,7 @@ namespace BL.BO
                 if (Id != 0)
                     Update(unitOfWork);
                 else
-                    Create(unitOfWork);
+                    Add(unitOfWork);
             }
         }
 
