@@ -205,6 +205,7 @@ namespace WebApplication2.Controllers
         public ActionResult Edit(OrderView model)
         {
             var orderBO = mapper.Map<OrderBO>(model);
+
             if (model.Id == 0)
             {
                 var allow = orderBO.GetOrdersList().Select(m => mapper.Map<OrderView>(m)).Where(o => o.UserId == model.UserId).ToList();

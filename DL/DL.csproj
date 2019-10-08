@@ -85,6 +85,10 @@
     <Compile Include="Migrations\201910040901531_changeTypePeriod.Designer.cs">
       <DependentUpon>201910040901531_changeTypePeriod.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201910081402583_deleteNameBook.cs" />
+    <Compile Include="Migrations\201910081402583_deleteNameBook.Designer.cs">
+      <DependentUpon>201910081402583_deleteNameBook.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\IRepository.cs" />
@@ -115,6 +119,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201910040901531_changeTypePeriod.resx">
       <DependentUpon>201910040901531_changeTypePeriod.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201910081402583_deleteNameBook.resx">
+      <DependentUpon>201910081402583_deleteNameBook.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
