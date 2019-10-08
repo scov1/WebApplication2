@@ -19,5 +19,10 @@ namespace WebApplication2
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
         }
+
+        //protected void Application_Error()
+        //{
+        //    Log4NetHelper log4netHelper = new Log4NetHelper();
+        //}
     }
 }

@@ -221,8 +221,7 @@ public ActionResult Index()
         {
             var books = DependencyResolver.Current.GetService<BookBO>();
             var authors = DependencyResolver.Current.GetService<AuthorBO>();
-            var expensiveBooks = books.GetBooksList().Select(item => mapper.Map<BookView>(item))
-                                .OrderByDescending(b => b.Price).ToList();
+            var expensiveBooks = books.GetBooksList().Select(item => mapper.Map<BookView>(item)).OrderByDescending(b => b.Price).ToList();
             ViewBag.ExpBooks = expensiveBooks;
             ViewBag.Authors = authors.GetAuthorsList();
 
