@@ -23,7 +23,7 @@ namespace DL.Repositories
             this.db = db;
             table = db.Set<T>();
         }
-        public void Create(T item)
+        public void Add(T item)
         {
             table.Add(item);
         }

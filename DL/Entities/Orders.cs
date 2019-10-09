@@ -22,15 +22,15 @@ namespace DL.Entities
         public Users Users { get; set; }
 
         [Required]
-        [DataType(DataType.Date)]
+        [DataType(DataType.DateTime)]
         public DateTime CreateDate { get; set; }
 
         [Required]
-        [DataType(DataType.Date)]
+        [DataType(DataType.DateTime)]
         public DateTime? ReturnDate { get; set; }
 
         [Required]
-        [DataType(DataType.Date)]
+        [DataType(DataType.DateTime)]
         public DateTime Period { get; set; }
 
 

@@ -50,10 +50,10 @@ namespace BL.BO
             return books;
         }
 
-        void Create(IUnitOfWork<Books> unitOfWork)
+        void Add(IUnitOfWork<Books> unitOfWork)
         {
             var book = mapper.Map<Books>(this);
-            unitOfWork.EntityRepository.Create(book);
+            unitOfWork.EntityRepository.Add(book);
             unitOfWork.Save();
         }
 
@@ -72,7 +72,7 @@ namespace BL.BO
                 if (Id != 0)
                     Update(unitOfWork);
                 else
-                    Create(unitOfWork);
+                    Add(unitOfWork);
             }
         }
 

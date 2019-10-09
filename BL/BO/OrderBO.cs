@@ -49,20 +49,6 @@ namespace BL.BO
             return orders;
         }
 
-        void Add(IUnitOfWork<Orders> unitOfWork)
-        {
-            var order = mapper.Map<Orders>(this);
-            order.CreateDate = DateTime.Now;
-            unitOfWork.EntityRepository.Create(order);
-            unitOfWork.Save();
-        }
-
-        void Update(IUnitOfWork<Orders> unitOfWork)
-        {
-            var order = mapper.Map<Orders>(this);
-            unitOfWork.EntityRepository.Update(order);
-            unitOfWork.Save();
-        }
 
         public void Save()
         {
@@ -74,6 +60,23 @@ namespace BL.BO
                     Add(unitOfWork);
             }
         }
+
+        void Add(IUnitOfWork<Orders> unitOfWork)
+        {
+            var order = mapper.Map<Orders>(this);
+            order.CreateDate = DateTime.Today;
+            unitOfWork.EntityRepository.Add(order);
+            unitOfWork.Save();
+        }
+
+        void Update(IUnitOfWork<Orders> unitOfWork)
+        {
+            var order = mapper.Map<Orders>(this);
+            //order.CreateDate = DateTime.Today;
+            unitOfWork.EntityRepository.Update(order);
+            unitOfWork.Save();
+        }
+
 
         public void Delete(int id)
         {

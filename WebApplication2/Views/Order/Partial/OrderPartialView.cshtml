@@ -2,14 +2,15 @@
     List<WebApplication2.ViewModel.UserView> users = ViewBag.Users;
     List<WebApplication2.ViewModel.BookView> books = ViewBag.Books;
 }
+
 <table class="table table-striped">
     <thead>
         <tr>
-            <th scope="col">User</th>
-            <th scope="col">Book</th>
-            <th scope="col">Creation date</th>
-            <th scope="col">Period</th>
-            <th scope="col">Return date</th>
+            <th scope="col">Пользователь</th>
+            <th scope="col">Книга</th>
+            <th scope="col">Дата создания</th>
+            <th scope="col">Период</th>
+            <th scope="col">Дата возврата книги</th>
         </tr>
     </thead>
     <tbody>
@@ -22,6 +23,7 @@
                 <td scope="row">@book</td>
                 <td scope="row">@item.CreationDate</td>
                 <td scope="row">@item.Period</td>
+
                 @if (@item.ReturnDate != @item.CreationDate)
                 {
                     <td scope="row">@item.ReturnDate</td>

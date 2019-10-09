@@ -5,7 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
-
+using WebApplication2.Helpers;
 
 namespace WebApplication2
 {
@@ -20,9 +20,9 @@ namespace WebApplication2
             BundleConfig.RegisterBundles(BundleTable.Bundles);
         }
 
-        //protected void Application_Error()
-        //{
-        //    Log4NetHelper log4netHelper = new Log4NetHelper();
-        //}
+        protected void Application_Error()
+        {
+            Log4NetHelper log4netHelper = new Log4NetHelper();
+        }
     }
 }

@@ -46,10 +46,10 @@ namespace BL.BO
             return authors;
         }
 
-        void Create(IUnitOfWork<Authors> unitOfWork)
+        void Add(IUnitOfWork<Authors> unitOfWork)
         {
             var author = mapper.Map<Authors>(this);
-            unitOfWork.EntityRepository.Create(author);
+            unitOfWork.EntityRepository.Add(author);
             unitOfWork.Save();
         }
 
@@ -67,7 +67,7 @@ namespace BL.BO
                 if (Id != 0)
                     Update(unitOfWork);
                 else
-                    Create(unitOfWork);
+                    Add(unitOfWork);
             }
         }
 
