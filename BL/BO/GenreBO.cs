@@ -49,7 +49,7 @@ namespace BL.BO
         void Add(IUnitOfWork<Genres> unitOfWork)
         {
             var genre = mapper.Map<Genres>(this);
-            unitOfWork.EntityRepository.Create(genre);
+            unitOfWork.EntityRepository.Add(genre);
             unitOfWork.Save();
         }
 

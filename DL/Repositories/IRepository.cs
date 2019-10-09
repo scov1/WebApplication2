@@ -9,7 +9,7 @@ namespace DL.Repositories
     public interface IRepository<T> where T : class
     {
         IEnumerable<T> GetAll();
-        void Create(T item);
+        void Add(T item);
 
         void Update(T item);
 

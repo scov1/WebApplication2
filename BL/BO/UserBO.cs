@@ -49,7 +49,7 @@ namespace BL.BO
         void Add(IUnitOfWork<Users> unitOfWork)
         {
             var author = mapper.Map<Users>(this);
-            unitOfWork.EntityRepository.Create(author);
+            unitOfWork.EntityRepository.Add(author);
             unitOfWork.Save();
         }
 
