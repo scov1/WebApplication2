@@ -21,8 +21,8 @@
             <tr>
                 <th scope="row">@item.FirstName</th>
                 <th scope="row">@item.LastName</th>
-                <td scope="row">@Html.ActionLink("Edit author", "Edit", "Author", new { id = @item.Id }, null)</td>
-                <td scope="row">@Html.ActionLink("Delete", "Delete", "Author", new { id = @item.Id }, null)</td>
+                <td scope="row">@Html.ActionLink("Редактировать", "Edit", "Author", new { id = @item.Id }, null)</td>
+                <td scope="row">@Html.ActionLink("Удалить", "Delete", "Author", new { id = @item.Id }, null)</td>
             </tr>
 
         }

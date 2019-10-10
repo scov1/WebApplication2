@@ -11,7 +11,7 @@ namespace WebApplication2.ViewModel
         public int Id { get; set; }
         public int? AuthorId { get; set; }
 
-        [RegularExpression(@"[A-Za-z]@")]
+        [RegularExpression(@"[a-zA-Z]@")]
         [StringLength(50, MinimumLength = 3, ErrorMessage = "Длина строки не менее 3х символов и не более 50")]
         public string Title { get; set; }
 
