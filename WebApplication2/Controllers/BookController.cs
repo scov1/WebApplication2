@@ -2,6 +2,7 @@
 using BL.BO;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -88,8 +89,11 @@ namespace WebApplication2.Controllers
             var bookBO = DependencyResolver.Current.GetService<BookBO>();
             var bookList = bookBO.GetBooksList();
             var authorList = DependencyResolver.Current.GetService<AuthorBO>().GetAuthorsList();
+            var genreList = DependencyResolver.Current.GetService<GenreBO>().GetGenreList();
+
             ViewBag.Books = bookList.Select(m => mapper.Map<BookView>(m)).ToList();
             ViewBag.Authors = authorList.Select(m => mapper.Map<AuthorView>(m)).ToList();
+            ViewBag.Genres = genreList.Select(m => mapper.Map<GenreView>(m)).ToList();
             return View();
         }
 
@@ -99,6 +103,7 @@ namespace WebApplication2.Controllers
             var bookBO = DependencyResolver.Current.GetService<BookBO>();
             var authors = DependencyResolver.Current.GetService<AuthorBO>();
             var model = mapper.Map<BookView>(bookBO);
+            var genres = DependencyResolver.Current.GetService<GenreBO>();
 
             if (id != null)
             {
@@ -109,19 +114,19 @@ namespace WebApplication2.Controllers
             else ViewBag.Message = "Create";
 
             ViewBag.Authors = new SelectList(authors.GetAuthorsList().Select(m => mapper.Map<AuthorView>(m)).ToList(), "Id", "LastName");
-
+            ViewBag.Genres = new SelectList(genres.GetGenreList().Select(m => mapper.Map<GenreView>(m)).ToList(), "Id", "Name");
             return View(model);
         }
 
         // POST: Book/Edit/5
         [HttpPost]
-        public ActionResult Edit(BookView model)
+        public ActionResult Edit(BookView model, HttpPostedFileBase imageBook=null)
         {
             var bookBO = mapper.Map<BookBO>(model);
             //if (ModelState.IsValid)
             //{
-            bookBO.Save();
-            return RedirectToActionPermanent("Index", "Book");
+            //bookBO.Save();
+            //return RedirectToActionPermanent("Index", "Book");
 
             //// массив для хранения бинарных данных файла
             //byte[] imageData;
@@ -133,6 +138,34 @@ namespace WebApplication2.Controllers
 
             //}
             //else return View(model);
+
+
+            //if (ModelState.IsValid && upload != null)
+            //{
+            //    byte[] imageData = null;
+            //    // считываем переданный файл в массив байтов
+            //    using (var binaryReader = new BinaryReader(upload.InputStream))
+            //    {
+            //        imageData = binaryReader.ReadBytes(upload.ContentLength);
+            //    }
+            //    // установка массива байтов
+            //    bookBO.ImageData = imageData;
+            //}
+
+            //bookBO.Save();
+
+
+            byte[] imageData = null;
+            if (imageBook != null)
+            {
+                using (var binaryReader = new BinaryReader(imageBook.InputStream))
+                {
+                    imageData = binaryReader.ReadBytes(imageBook.ContentLength);
+                }
+                bookBO.ImageData = imageData;
+            }
+
+            return RedirectToActionPermanent("Index", "Book");
         }
 
         // GET: Book/Delete/5
