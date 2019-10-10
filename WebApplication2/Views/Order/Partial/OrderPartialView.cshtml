@@ -29,10 +29,10 @@
                 }*@
                 @*else
                 {*@
-                    <td scope="row">@Html.ActionLink("Send notification", "SendEmail", "Order", new { id = @item.Id }, null)</td>
+                    <td scope="row">@Html.ActionLink("Отправить уведомление", "SendEmail", "Order", new { id = @item.Id }, null)</td>
                 @*}*@
-                <td scope="row">@Html.ActionLink("Edit order", "Edit", "Order", new { id = @item.Id }, null)</td>
-                <td scope="row">@Html.ActionLink("Delete order", "Delete", "Order", new { id = @item.Id }, null)</td>
+                <td scope="row">@Html.ActionLink("Редактировать", "Edit", "Order", new { id = @item.Id }, null)</td>
+                <td scope="row">@Html.ActionLink("Удалить", "Delete", "Order", new { id = @item.Id }, null)</td>
             </tr>
         }
 </table>

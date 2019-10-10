@@ -210,9 +210,9 @@ namespace WebApplication2.Controllers
             {
                 var orderBOList = orderBO.GetOrdersListById(id);
                 model = mapper.Map<OrderView>(orderBOList);
-                ViewBag.Message = "Edit";
+               
             }
-            else ViewBag.Message = "Create";
+           
 
             model.ReturnDate = null;
 
@@ -248,10 +248,11 @@ namespace WebApplication2.Controllers
 
             //return RedirectToActionPermanent("Index", "Order");
 
-            var orderBO = mapper.Map<OrderBO>(model);
+         
 
             if (model.Id == 0)
             {
+                var orderBO = mapper.Map<OrderBO>(model);
                 var allow = orderBO.GetOrdersList().Select(m => mapper.Map<OrderView>(m)).Where(o => o.UserId == model.UserId).ToList();
                 var list = allow.Where(a => a.Period < DateTime.Today && a.CreationDate == a.ReturnDate).ToList();
 
@@ -264,7 +265,10 @@ namespace WebApplication2.Controllers
             }
             else
             {
-                if (model.ReturnDate == null) orderBO.ReturnDate = orderBO.CreationDate;
+               if (model.ReturnDate == null) model.ReturnDate = DateTime.Now;
+               
+                model.CreationDate = DateTime.Today;
+                var orderBO = mapper.Map<OrderBO>(model);
                 orderBO.Save();
             }
 
@@ -314,15 +318,15 @@ namespace WebApplication2.Controllers
             var userBO = DependencyResolver.Current.GetService<UserBO>();
 
             //deadlines = orderBO.Select(m => mapper.Map<OrderView>(m)).Where(o => o.CreationDate == o.ReturnDate && DateTime.Today > o.Period).ToList();
-            debtor = orderBO.Select(m => mapper.Map<OrderView>(m)).Where(o =>  DateTime.Today > o.Period).ToList();
-            //string path = @"C:\Test\deadline.txt";
+            debtor = orderBO.Select(m => mapper.Map<OrderView>(m)).Where(o =>DateTime.Today > o.Period).ToList();
+            //string path = @"C:\Test\debtor.txt";
 
 
             //using (FileStream fs = new FileStream(path, FileMode.OpenOrCreate))
             //{
             //    using (StreamWriter sw = new StreamWriter(fs, System.Text.Encoding.Unicode))
             //    {
-            //        foreach (var item in deadlines)
+            //        foreach (var item in debtor)
             //        {
             //            var user = mapper.Map<UserView>(userBO.GetUsersListById(item.UserId));
             //            string fio = user.FIO;
@@ -356,12 +360,21 @@ namespace WebApplication2.Controllers
             StringBuilder sb = new StringBuilder();
             string header = "#\tUser\tBook\tReturn";
             sb.Append(header);
-            sb.Append("\r\n\r\n");
+            sb.Append("\n");
             sb.Append('-', header.Length * 2);
-            sb.Append("\r\n\r\n");
+            sb.Append("\n");
+         
             foreach (var item in debtor)
             {
-                sb.Append((debtor.IndexOf(item) + 1) + "\t" + item.UserId + "\t" + item.BookId  + "\t" + item.Period + "\r\n");
+
+                sb.Append((debtor.IndexOf(item) + 1) + "\t" + item + "\t" + item.BookId  + "\t" + item.Period + "\r\n");
+            }
+
+            foreach (var item in debtor)
+            {
+                var user = mapper.Map<UserView>(userBO.GetUsersListById(item.UserId));
+                string fio = user.FIO;
+                sb.Append($"User: {fio}   CreationDate: {item.CreationDate}  Period: {item.Period}");
             }
             byte[] data = Encoding.ASCII.GetBytes(sb.ToString());
 

@@ -72,7 +72,7 @@ namespace BL.BO
         void Update(IUnitOfWork<Orders> unitOfWork)
         {
             var order = mapper.Map<Orders>(this);
-            //order.CreateDate = DateTime.Today;
+            order.CreateDate = DateTime.Today;
             unitOfWork.EntityRepository.Update(order);
             unitOfWork.Save();
         }

@@ -109,9 +109,9 @@ namespace WebApplication2.Controllers
             {
                 var bookBOList = bookBO.GetBooksListById(id);
                 model = mapper.Map<BookView>(bookBOList);
-                ViewBag.Message = "Edit";
+               
             }
-            else ViewBag.Message = "Create";
+      
 
             ViewBag.Authors = new SelectList(authors.GetAuthorsList().Select(m => mapper.Map<AuthorView>(m)).ToList(), "Id", "LastName");
             ViewBag.Genres = new SelectList(genres.GetGenreList().Select(m => mapper.Map<GenreView>(m)).ToList(), "Id", "Name");
@@ -120,7 +120,7 @@ namespace WebApplication2.Controllers
 
         // POST: Book/Edit/5
         [HttpPost]
-        public ActionResult Edit(BookView model, HttpPostedFileBase imageBook=null)
+        public ActionResult Edit(BookView model, HttpPostedFileBase imageBook)
         {
             var bookBO = mapper.Map<BookBO>(model);
             //if (ModelState.IsValid)
