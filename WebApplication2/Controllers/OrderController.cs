@@ -6,6 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Mail;
+using System.Text;
 using System.Web;
 using System.Web.Mvc;
 using WebApplication2.ViewModel;
@@ -159,10 +160,11 @@ namespace WebApplication2.Controllers
 
             if (Request.IsAjaxRequest())
             {
-                if (sort == "Creation Date")
+                if (sort == "Period")
                 {
                     var orders = orderBO.GetOrdersList().Select(m => mapper.Map<OrderView>(m)).ToList();
-                    ViewBag.Orders = orders.OrderBy(o => o.CreationDate);
+                    ViewBag.Orders = orders.OrderBy(o => o.Period);
+
                 }
                 else if (sort == "None")
                     ViewBag.Orders = orderBO.GetOrdersList().Select(m => mapper.Map<OrderView>(m)).ToList();
@@ -293,11 +295,11 @@ namespace WebApplication2.Controllers
             MailAddress from = new MailAddress("seda8888-92@mail.ru", "Верните книгу");
             MailAddress to = new MailAddress(userMail.Email);
             MailMessage message = new MailMessage(from, to);
-            message.Subject = "Верните книгу";
+            message.Subject = "Приветики,пистолетики";
             message.Body = string.Format("Верните книгу,вы ее уже просрочили");
             message.IsBodyHtml = false;
             SmtpClient smtp = new SmtpClient("smtp.mail.ru", 587);
-            smtp.Credentials = new NetworkCredential("seda8888-92@mail.ru", "");
+            smtp.Credentials = new NetworkCredential("seda8888-92@mail.ru", "zvezda8899");
             smtp.EnableSsl = true;
             smtp.Send(message);
 
@@ -306,48 +308,65 @@ namespace WebApplication2.Controllers
 
         public ActionResult FileDeadline()
         {
-            List<OrderView> deadlines = new List<OrderView>();
+            List<OrderView> debtor = new List<OrderView>();
 
             var orderBO = DependencyResolver.Current.GetService<OrderBO>().GetOrdersList();
             var userBO = DependencyResolver.Current.GetService<UserBO>();
 
-            deadlines = orderBO.Select(m => mapper.Map<OrderView>(m)).Where(o => o.CreationDate == o.ReturnDate && DateTime.Today > o.Period).ToList();
-            string path = @"C:\Test\deadline.txt";
+            //deadlines = orderBO.Select(m => mapper.Map<OrderView>(m)).Where(o => o.CreationDate == o.ReturnDate && DateTime.Today > o.Period).ToList();
+            debtor = orderBO.Select(m => mapper.Map<OrderView>(m)).Where(o =>  DateTime.Today > o.Period).ToList();
+            //string path = @"C:\Test\deadline.txt";
 
-            using (FileStream fs = new FileStream(path, FileMode.OpenOrCreate))
+
+            //using (FileStream fs = new FileStream(path, FileMode.OpenOrCreate))
+            //{
+            //    using (StreamWriter sw = new StreamWriter(fs, System.Text.Encoding.Unicode))
+            //    {
+            //        foreach (var item in deadlines)
+            //        {
+            //            var user = mapper.Map<UserView>(userBO.GetUsersListById(item.UserId));
+            //            string fio = user.FIO;
+            //            sw.WriteLine($"User: {fio}   CreationDate: {item.CreationDate}  Period: {item.Period}");
+            //        }
+            //    }
+            //}
+
+            //#region MemoryStream
+            ////    //byte[] data = new byte[5000];
+            ////    //MemoryStream ms = new MemoryStream(data);
+            ////    //StreamWriter sw = new StreamWriter(ms);
+
+            ////    //foreach (var item in links)
+            ////    //    if (item.Deadline < DateTime.Now)
+            ////    //    {
+            ////    //        string fio = db.Users.Where(u => u.Id == item.UserId).FirstOrDefault().FIO;
+            ////    //        sw.WriteLine($"User: {fio}   CreationDate: {item.CreationDate}  Deadline: {item.Deadline}");
+            ////    //    }
+            ////    //sw.Flush();
+            ////    //sw.Close();
+            ////    ////sr.Close();
+            ////    //string dir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            ////    //FileStream file = new FileStream($@"{dir}\test.txt", FileMode.OpenOrCreate);
+            ////    //ms.CopyTo(file);
+            ////    ////return File(ms, "text/plain");
+            //#endregion
+
+            //return RedirectToActionPermanent("Index", "Order");
+
+            StringBuilder sb = new StringBuilder();
+            string header = "#\tUser\tBook\tReturn";
+            sb.Append(header);
+            sb.Append("\r\n\r\n");
+            sb.Append('-', header.Length * 2);
+            sb.Append("\r\n\r\n");
+            foreach (var item in debtor)
             {
-                using (StreamWriter sw = new StreamWriter(fs, System.Text.Encoding.Unicode))
-                {
-                    foreach (var item in deadlines)
-                    {
-                        var user = mapper.Map<UserView>(userBO.GetUsersListById(item.UserId));
-                        string fio = user.FIO;
-                        sw.WriteLine($"User: {fio}   CreationDate: {item.CreationDate}  Period: {item.Period}");
-                    }
-                }
+                sb.Append((debtor.IndexOf(item) + 1) + "\t" + item.UserId + "\t" + item.BookId  + "\t" + item.Period + "\r\n");
             }
+            byte[] data = Encoding.ASCII.GetBytes(sb.ToString());
 
-            #region MemoryStream
-            //    //byte[] data = new byte[5000];
-            //    //MemoryStream ms = new MemoryStream(data);
-            //    //StreamWriter sw = new StreamWriter(ms);
-
-            //    //foreach (var item in links)
-            //    //    if (item.Deadline < DateTime.Now)
-            //    //    {
-            //    //        string fio = db.Users.Where(u => u.Id == item.UserId).FirstOrDefault().FIO;
-            //    //        sw.WriteLine($"User: {fio}   CreationDate: {item.CreationDate}  Deadline: {item.Deadline}");
-            //    //    }
-            //    //sw.Flush();
-            //    //sw.Close();
-            //    ////sr.Close();
-            //    //string dir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-            //    //FileStream file = new FileStream($@"{dir}\test.txt", FileMode.OpenOrCreate);
-            //    //ms.CopyTo(file);
-            //    ////return File(ms, "text/plain");
-            #endregion
-
-            return RedirectToActionPermanent("Index", "Order");
+            string contentType = "text/plain";
+            return File(data, contentType, "orders.txt");
         }
     }
 }

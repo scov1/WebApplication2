@@ -50,20 +50,23 @@
     List<WebApplication2.ViewModel.BookView> books = ViewBag.Books;
 }
 
-@Html.ActionLink("Create order", "Edit")
+@Html.ActionLink("Создать заказ", "Edit")
+
+<div style="display:inline-block; margin-left:50px;">
+
+    @Html.ActionLink("Скачать список должников", "FileDeadline")
+</div>
 
 <h2>Orders</h2>
 
-<div style="display:inline-block; margin-left:50px;">
-    @Html.ActionLink("Get list of deadlines", "FileDeadline")
-</div>
+
 
 <div>
-    @*<a onclick="Change()">Sort by creation date</a>*@
-    <label>Sort by </label>
+ 
+    <label>Сортировать:  </label>
     <select id="sort">
         <option value="None">None</option>
-        <option value="Creation Date">Creation Date</option>
+        <option value="Period">Period</option>
     </select>
 </div>
 

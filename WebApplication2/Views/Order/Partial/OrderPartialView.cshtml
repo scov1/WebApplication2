@@ -8,9 +8,8 @@
         <tr>
             <th scope="col">Пользователь</th>
             <th scope="col">Книга</th>
-            <th scope="col">Дата создания</th>
             <th scope="col">Период</th>
-            <th scope="col">Дата возврата книги</th>
+     
         </tr>
     </thead>
     <tbody>
@@ -21,17 +20,17 @@
             <tr>
                 <td scope="row">@user</td>
                 <td scope="row">@book</td>
-                <td scope="row">@item.CreationDate</td>
+                @*<td scope="row">@item.CreationDate</td>*@
                 <td scope="row">@item.Period</td>
 
-                @if (@item.ReturnDate != @item.CreationDate)
+                @*@if (@item.ReturnDate != @item.CreationDate)
                 {
                     <td scope="row">@item.ReturnDate</td>
-                }
-                else
-                {
+                }*@
+                @*else
+                {*@
                     <td scope="row">@Html.ActionLink("Send notification", "SendEmail", "Order", new { id = @item.Id }, null)</td>
-                }
+                @*}*@
                 <td scope="row">@Html.ActionLink("Edit order", "Edit", "Order", new { id = @item.Id }, null)</td>
                 <td scope="row">@Html.ActionLink("Delete order", "Delete", "Order", new { id = @item.Id }, null)</td>
             </tr>
