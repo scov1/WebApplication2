@@ -150,35 +150,41 @@ namespace WebApplication2.Controllers
         //    return RedirectToAction("Index", "Author");
         //}
 
-        protected IMapper mapper;
+    protected IMapper mapper;
     public AuthorController(IMapper mapper)
-    {
-            this.mapper = mapper;
+        {
+                this.mapper = mapper;
         }
 
-public ActionResult Index()
+    public ActionResult Index()
         {
             var authorBO = DependencyResolver.Current.GetService<AuthorBO>();
             var authorList = authorBO.GetAuthorsList();
             ViewBag.Authors = authorList.Select(m => mapper.Map<AuthorView>(m)).ToList();
 
-            List<AuthorView> authorsTop = new List<AuthorView>();
+            List<AuthorView> topAuthor = new List<AuthorView>();
             BookBO books = DependencyResolver.Current.GetService<BookBO>();
-            var expensiveBooks = books.GetBooksList().Select(item => mapper.Map<BookView>(item))
-                                .OrderByDescending(b => b.Price).ToList();
+            var expensive = books.GetBooksList().Select(item => mapper.Map<BookView>(item)).OrderByDescending(b => b.Price).ToList();
 
-            foreach (var item in expensiveBooks)
+            foreach (var item in expensive)
             {
-                authorsTop.Add(authorList.Select(a => mapper.Map<AuthorView>(a))
+                topAuthor.Add(authorList.Select(a => mapper.Map<AuthorView>(a))
                     .Where(a => a.Id == item.AuthorId).FirstOrDefault());
             }
+         
+
             ViewBag.Authors = authorList.Select(item => mapper.Map<AuthorView>(item)).ToList();
-            ViewBag.AuthorsTop = authorsTop.Distinct().Take(5);
+            ViewBag.AuthorsTop = topAuthor.Distinct().Take(5);
+
+            if (Request.IsAjaxRequest())
+            {
+                return PartialView("Partial/MyPartialView", ViewBag.Authors);
+            }
 
             return View();
         }
 
-        // GET: Author/Edit/5
+ 
         public ActionResult Edit(int? id)
         {
             var authorBO = DependencyResolver.Current.GetService<AuthorBO>();
@@ -195,20 +201,20 @@ public ActionResult Index()
             return View(model);
         }
 
-        // POST: Author/Edit/5
+      
         [HttpPost]
         public ActionResult Edit(AuthorView model)
         {
             var authorBO = mapper.Map<AuthorBO>(model);
-            //if (ModelState.IsValid)
-            //{
-            authorBO.Save();
-            return RedirectToActionPermanent("Index", "Author");
-            //}
-            //else return View(model);
+            if (ModelState.IsValid)
+            {
+                authorBO.Save();
+                return RedirectToActionPermanent("Index", "Author");
+            }
+            else return View(model);
         }
 
-        // POST: Author/Delete/5
+
         public ActionResult Delete(int id)
         {
             var author = DependencyResolver.Current.GetService<AuthorBO>().GetAuthorsListById(id);

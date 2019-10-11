@@ -10,11 +10,11 @@ namespace WebApplication2.ViewModel
     {
         public int Id { get; set; }
 
-        [Required(ErrorMessage = "Обязательно заполните поле")]
+        [Required(ErrorMessage = "Обязательно поле")]
         public string FirstName { get; set; }
 
-        //[RegularExpression(@"[A-Za-z]@")]
-        [StringLength(20, MinimumLength = 2, ErrorMessage = "Длина строки не менее 2х символов и не более 20")]
+        [RegularExpression(@"[A-Za-z]@")]
+        [StringLength(30, MinimumLength = 2, ErrorMessage = "Фамилия должна быть более двух букв")]
         public string LastName { get; set; }
     }
 }

@@ -43,7 +43,7 @@
                     </tr>
                 }
         </table>*@
-
+<link href="~/Content/style.css" rel="stylesheet" />
 @{
     ViewBag.Title = "Index";
     List<WebApplication2.ViewModel.UserView> users = ViewBag.Users;
@@ -52,7 +52,7 @@
 
 @Html.ActionLink("Создать заказ", "Edit")
 
-<div style="display:inline-block; margin-left:50px;">
+<div class="debtor">
 
     @Html.ActionLink("Скачать список должников" , "FileDeadline", "Order")
 </div>
@@ -61,8 +61,8 @@
  
     <label>Сортировать:  </label>
     <select id="sort">
-        <option value="None">None</option>
-        <option value="Period">Period</option>
+        <option value="None">По умолчанию</option>
+        <option value="Period">Период</option>
     </select>
 </div>
 

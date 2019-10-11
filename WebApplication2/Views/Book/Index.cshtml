@@ -1,5 +1,6 @@
 ﻿
 @model WebApplication2.ViewModel.BookView
+<link href="~/Content/style.css" rel="stylesheet" />
     @*@{ 
         List<WebApplication2.ViewModel.AuthorView> authors = ViewBag.Authors;
         List<WebApplication2.ViewModel.GenreView> genres = ViewBag.Genres;
@@ -8,10 +9,10 @@
         @{
             ViewBag.Title = "Index";
         }
-        <h2>Index</h2>
 
-        @Html.ActionLink("Создать", "Edit", "Book")
-
+<div class="btn_create">
+    @Html.ActionLink("Создать", "Edit", "Book")
+</div>
         <table class="table">
             <thead>
                 <tr>
