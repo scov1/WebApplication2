@@ -3,6 +3,7 @@ using DL.Entities;
 using DL.UnitOfWork;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,7 +16,9 @@ namespace BL.BO
         private readonly IUnityContainer unityContainer;
 
         public int Id { get; set; }
+        [Display(Name = "Пользователь")]
         public virtual int UserId { get; set; }
+        [Display(Name = "Книга")]
         public virtual int BookId { get; set; }
         public DateTime CreationDate { get; set; }
         public DateTime Period { get; set; }

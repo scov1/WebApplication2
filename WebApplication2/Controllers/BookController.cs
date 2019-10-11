@@ -120,9 +120,9 @@ namespace WebApplication2.Controllers
 
         // POST: Book/Edit/5
         [HttpPost]
-        public ActionResult Edit(BookView model, HttpPostedFileBase imageBook)
+        public ActionResult Edit(BookView model, HttpPostedFileBase imageBook/*, int genre, int author*/)
         {
-            var bookBO = mapper.Map<BookBO>(model);
+
             //if (ModelState.IsValid)
             //{
             //bookBO.Save();
@@ -153,8 +153,8 @@ namespace WebApplication2.Controllers
             //}
 
             //bookBO.Save();
-
-
+            string str = "check";
+            var bookBO = mapper.Map<BookBO>(model);
             byte[] imageData = null;
             if (imageBook != null)
             {
@@ -164,6 +164,24 @@ namespace WebApplication2.Controllers
                 }
                 bookBO.ImageData = imageData;
             }
+      
+       
+  
+            else
+            {
+                bookBO.ImageData = new byte[str.Length];
+            }
+
+            //bookBO.GenreId = genre;
+            //bookBO.AuthorId = author;
+            bookBO.Save();
+
+            var books = DependencyResolver.Current.GetService<BookBO>().GetBooksList();
+
+            //var authorList = DependencyResolver.Current.GetService<AuthorBO>().GetAuthorsList();
+            //var genreList = DependencyResolver.Current.GetService<GenreBO>().GetGenreList();
+            //ViewBag.Authors = authorList.Select(m => mapper.Map<AuthorView>(m)).ToList();
+            //ViewBag.Genres = genreList.Select(m => mapper.Map<GenreView>(m)).ToList();
 
             return RedirectToActionPermanent("Index", "Book");
         }
