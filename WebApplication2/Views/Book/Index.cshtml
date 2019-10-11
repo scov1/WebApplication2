@@ -1,33 +1,42 @@
 ﻿
 @model WebApplication2.ViewModel.BookView
+    @*@{ 
+        List<WebApplication2.ViewModel.AuthorView> authors = ViewBag.Authors;
+        List<WebApplication2.ViewModel.GenreView> genres = ViewBag.Genres;
+    }*@
 
-@{
-    ViewBag.Title = "Index";
-}
-<h2>Index</h2>
-
-@Html.ActionLink("Создать", "Edit", "Book")
-
-<table class="table">
-    <thead>
-        <tr>
-            <th scope="col">Название книги</th>
-            <th scope="col">Кол-во Страниц</th>
-            <th scope="col">Цена</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            @foreach (var item in ViewBag.Books)
-            {
-            <tr>
-                <th scope="row">@item.Title</th>
-                <th scope="row">@item.Pages</th>
-                <th scope="row">@item.Price</th>
-                <td scope="row">@Html.ActionLink("Редактировать", "Edit", "Book", new { id = @item.Id }, null)</td>
-                <td scope="row">@Html.ActionLink("Удалить", "Delete", "Book", new { id = @item.Id }, null)</td>
-            </tr>
-
+        @{
+            ViewBag.Title = "Index";
         }
-    </table>
+        <h2>Index</h2>
+
+        @Html.ActionLink("Создать", "Edit", "Book")
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Название книги</th>
+                    <th scope="col">Кол-во Страниц</th>
+                    <th scope="col">Цена</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    @foreach (var item in ViewBag.Books)
+                    {
+                    <tr>
+                        <th scope="row">@item.Title</th>
+                        <th scope="row">@item.Pages</th>
+                        <th scope="row">@item.Price</th>
+                        <td scope="row">@Html.ActionLink("Редактировать", "Edit", "Book", new { id = @item.Id }, null)</td>
+                        <td scope="row">@Html.ActionLink("Удалить", "Delete", "Book", new { id = @item.Id }, null)</td>
+                    </tr>
+
+                }
+            </table>
+
+
+            @*<div id="bookList">
+                @Html.Partial("Index",ViewBag.Books as List<WebApplication2.ViewModel.BookView>, new ViewDataDictionary { { "authors", authors }, { "genres", genres } })
+            </div>*@
 

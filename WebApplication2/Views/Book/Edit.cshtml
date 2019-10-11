@@ -8,7 +8,7 @@
 <h2>Edit</h2>
 
 
-@using (Ajax.BeginForm("Edit", "Books", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "content-book" }))
+@using (Ajax.BeginForm("Edit", "Book", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "content-book" }))
 {
     @Html.AntiForgeryToken()
 

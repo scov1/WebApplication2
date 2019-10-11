@@ -12,7 +12,7 @@ namespace DL.Entities
         public int Id { get; set; }
 
         [Required]
-        [ForeignKey("Books")]
+        [ForeignKey("Books")]  
         public int BookId { get; set; }
 
         public Books Books { get; set; }
