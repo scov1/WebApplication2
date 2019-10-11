@@ -1,0 +1,28 @@
+﻿<link href="~/Content/style.css" rel="stylesheet" />
+
+@{
+    ViewBag.Title = "Index";
+}
+<div class="btn_create">
+    @Html.ActionLink("Создать", "Edit", "Author")
+
+</div>
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Имя</th>
+            <th scope="col">Фамилия</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            @foreach (var item in ViewBag.AuthorsTop)
+            {
+            <tr>
+                <th scope="row">@item.FirstName</th>
+                <th scope="row">@item.LastName</th>
+                
+            </tr>
+
+            }
+    </table>

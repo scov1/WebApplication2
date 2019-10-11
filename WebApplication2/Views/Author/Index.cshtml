@@ -1,17 +1,18 @@
-﻿
+﻿@*@model WebApplication2.ViewModel.AuthorView
 
-@model WebApplication2.ViewModel.AuthorView
 
 @{
     ViewBag.Title = "Index";
 }
+    <div class="btn_create">
+    @Html.ActionLink("Создать", "Edit", "Author")
 
-@Html.ActionLink("Создать", "Edit", "Author")
+</div>
 <table class="table">
     <thead>
         <tr>
-            <th scope="col">FirstName</th>
-            <th scope="col">LastName</th>
+            <th scope="col">Имя</th>
+            <th scope="col">Фамилия</th>
         </tr>
     </thead>
     <tbody>
@@ -26,4 +27,61 @@
             </tr>
 
         }
-    </table>
+    </table>*@
+
+
+    <link href="~/Content/style.css" rel="stylesheet" />
+
+    @{
+        ViewBag.Title = "Index";
+        List<WebApplication2.ViewModel.AuthorView> authors = ViewBag.Authors;
+    }
+
+    @*@Html.ActionLink("Create author", "Edit")*@
+
+    @Html.Partial("Partial/_MyPartialView", @ViewBag.AuthorsTop as List<WebApplication2.ViewModel.AuthorView>)
+
+ 
+    <button type="button" class="createButton btn btn-primary">Создать</button>
+
+
+    <div id="createOrEdit">
+        @*@Html.Partial("Partial/EditPartialView", new WebApplication2.ViewModel.AuthorView())*@
+    </div>
+
+    <script src="http://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script type="text/javascript">
+      
+        function EditView() {
+            $.ajax({
+                url: '@Url.Action("Edit")',
+                method: 'GET',
+                success: function (data) {
+                    $("#createOrEdit").html(data);
+                }
+            })
+        }
+
+        $(".createButton").click(() => {
+            $.ajax({
+                url: '@Url.Action("Edit")',
+                method: 'GET',
+                success: function (data) {
+                    $("#createOrEdit").html(data);
+                    $("#modal").modal("show");
+                }
+            })
+        })
+        function EditButton(idEdit) {
+            console.log(idEdit)
+            $.ajax({
+                url: '@Url.Action("Edit")',
+                method: 'GET',
+                data: { id: idEdit },
+                success: function (data) {
+                    $("#createOrEdit").html(data);
+                    $("#modal").modal("show");
+                }
+            })
+        }
+    </script>

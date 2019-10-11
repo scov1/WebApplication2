@@ -1,28 +1,32 @@
 ﻿
 @*@model List<WebApplication2.Entities.Users>*@
 @model  List<WebApplication2.ViewModel.UserView>
+<link href="~/Content/style.css" rel="stylesheet" />
 
-@Html.ActionLink("Создать", "Edit", "User")
+<div class="btn_create">
+    @Html.ActionLink("Создать", "Edit", "User")
+</div>
+<div class="content">
 
 
-
-<table class="table">
-    <thead>
-        <tr>
-            <th scope="col">ФИО</th>
-            <th scope="col">E-mail</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            @foreach (var item in ViewBag.Users)
-            {
+    <table class="table">
+        <thead>
             <tr>
-                <th scope="row">@item.FIO</th>
-                <th scope="row">@item.Email</th>
-                <td scope="row">@Html.ActionLink("Редактировать", "Edit", "User", new { id = @item.Id }, null)</td>
-                <td scope="row">@Html.ActionLink("Удалить", "Delete", "User", new { id = @item.Id }, null)</td>
+                <th scope="col">ФИО</th>
+                <th scope="col">E-mail</th>
             </tr>
+        </thead>
+        <tbody>
+            <tr>
+                @foreach (var item in ViewBag.Users)
+            {
+                <tr>
+                    <th scope="row">@item.FIO</th>
+                    <th scope="row">@item.Email</th>
+                    <td scope="row">@Html.ActionLink("Редактировать", "Edit", "User", new { id = @item.Id }, null)</td>
+                    <td scope="row">@Html.ActionLink("Удалить", "Delete", "User", new { id = @item.Id }, null)</td>
+                </tr>
 
-        }
-    </table>
+                }
+        </table>
+    </div>
