@@ -1,14 +1,6 @@
 ﻿@model WebApplication2.ViewModel.BookView
 <link href="~/Content/style.css" rel="stylesheet" />
 
-@{
-    ViewBag.Title = "Создать";
-}
-<link href="~/Content/dropDown.css" rel="stylesheet" />
-
-
-
-
 @using (Ajax.BeginForm("Edit", "Book", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "content-book" }))
 {
     @Html.AntiForgeryToken()

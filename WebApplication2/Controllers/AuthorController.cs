@@ -148,7 +148,7 @@ namespace WebApplication2.Controllers
         //        db.SaveChanges();
         //    }
         //    return RedirectToAction("Index", "Author");
-        //}
+        //} 
 
     protected IMapper mapper;
     public AuthorController(IMapper mapper)
@@ -160,7 +160,7 @@ namespace WebApplication2.Controllers
         {
             var authorBO = DependencyResolver.Current.GetService<AuthorBO>();
             var authorList = authorBO.GetAuthorsList();
-            ViewBag.Authors = authorList.Select(m => mapper.Map<AuthorView>(m)).ToList();
+            ViewBag.Authors = authorList.Select(x => mapper.Map<AuthorView>(x)).ToList();
 
             List<AuthorView> topAuthor = new List<AuthorView>();
             BookBO books = DependencyResolver.Current.GetService<BookBO>();
@@ -168,18 +168,11 @@ namespace WebApplication2.Controllers
 
             foreach (var item in expensive)
             {
-                topAuthor.Add(authorList.Select(a => mapper.Map<AuthorView>(a))
-                    .Where(a => a.Id == item.AuthorId).FirstOrDefault());
+                topAuthor.Add(authorList.Select(a => mapper.Map<AuthorView>(a)).Where(a => a.Id == item.AuthorId).FirstOrDefault());
             }
-         
 
             ViewBag.Authors = authorList.Select(item => mapper.Map<AuthorView>(item)).ToList();
             ViewBag.AuthorsTop = topAuthor.Distinct().Take(5);
-
-            if (Request.IsAjaxRequest())
-            {
-                return PartialView("Partial/MyPartialView", ViewBag.Authors);
-            }
 
             return View();
         }
@@ -194,10 +187,8 @@ namespace WebApplication2.Controllers
             {
                 var authorBOList = authorBO.GetAuthorsListById(id);
                 model = mapper.Map<AuthorView>(authorBOList);
-                ViewBag.Message = "Edit";
             }
-            else ViewBag.Message = "Create";
-
+  
             return View(model);
         }
 
@@ -227,11 +218,13 @@ namespace WebApplication2.Controllers
         {
             var books = DependencyResolver.Current.GetService<BookBO>();
             var authors = DependencyResolver.Current.GetService<AuthorBO>();
-            var expensiveBooks = books.GetBooksList().Select(item => mapper.Map<BookView>(item)).OrderByDescending(b => b.Price).ToList();
-            ViewBag.ExpBooks = expensiveBooks;
+            var expensiveBooks = books.GetBooksList().Select(x => mapper.Map<BookView>(x)).OrderByDescending(z => z.Price).ToList();
+
+            ViewBag.ExpensiveBooks = expensiveBooks;
             ViewBag.Authors = authors.GetAuthorsList();
 
             return PartialView();
         }
     }
+    
 }

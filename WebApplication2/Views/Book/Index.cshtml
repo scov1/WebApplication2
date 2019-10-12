@@ -1,43 +1,17 @@
 ﻿
 @model WebApplication2.ViewModel.BookView
 <link href="~/Content/style.css" rel="stylesheet" />
-    @*@{ 
-        List<WebApplication2.ViewModel.AuthorView> authors = ViewBag.Authors;
-        List<WebApplication2.ViewModel.GenreView> genres = ViewBag.Genres;
-    }*@
-
-        @{
-            ViewBag.Title = "Index";
-        }
 
 <div class="btn_create">
-    @Html.ActionLink("Создать", "Edit", "Book")
+    @Ajax.ActionLink("Создать книгу", "Edit", new { id = 0 }, new AjaxOptions { UpdateTargetId = "book" })
 </div>
-        <table class="table">
-            <thead>
-                <tr>
-                    <th scope="col">Название книги</th>
-                    <th scope="col">Кол-во Страниц</th>
-                    <th scope="col">Цена</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    @foreach (var item in ViewBag.Books)
-                    {
-                    <tr>
-                        <th scope="row">@item.Title</th>
-                        <th scope="row">@item.Pages</th>
-                        <th scope="row">@item.Price</th>
-                        <td scope="row">@Html.ActionLink("Редактировать", "Edit", "Book", new { id = @item.Id }, null)</td>
-                        <td scope="row">@Html.ActionLink("Удалить", "Delete", "Book", new { id = @item.Id }, null)</td>
-                    </tr>
 
-                }
-            </table>
+@{
+    ViewBag.Title = "Index";
+    List<WebApplication2.ViewModel.BookView> authors = ViewBag.Books;
+}
 
 
-            @*<div id="bookList">
-                @Html.Partial("Index",ViewBag.Books as List<WebApplication2.ViewModel.BookView>, new ViewDataDictionary { { "authors", authors }, { "genres", genres } })
-            </div>*@
+@Html.Partial("ViewBook", Model)
+
 

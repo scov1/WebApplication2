@@ -105,7 +105,7 @@ namespace WebApplication2.Controllers
             return View(ViewBag.Users);
         }
 
-        // GET: User/Edit/5
+
         public ActionResult Edit(int? id)
         {
             var userBO = DependencyResolver.Current.GetService<UserBO>();
@@ -114,14 +114,12 @@ namespace WebApplication2.Controllers
             {
                 var userList = userBO.GetUsersListById(id);
                 model = mapper.Map<UserView>(userList);
-                ViewBag.Message = "Edit";
             }
-            else ViewBag.Message = "Create";
-
+  
             return View(model);
         }
 
-        // POST: User/Edit/5
+
         [HttpPost]
         public ActionResult Edit(UserView model)
         {
@@ -131,7 +129,7 @@ namespace WebApplication2.Controllers
             return RedirectToActionPermanent("Index", "User");
         }
 
-        // GET: User/Delete/5
+
         public ActionResult Delete(int id)
         {
             var user = DependencyResolver.Current.GetService<UserBO>().GetUsersListById(id);
@@ -140,18 +138,18 @@ namespace WebApplication2.Controllers
             return RedirectToActionPermanent("Index", "User");
         }
 
-        public ActionResult _UsersOrders(int id)
-        {
-            var orders = DependencyResolver.Current.GetService<OrderBO>();
-            var userOrders = orders.GetOrdersList().Where(o => o.UserId == id).ToList();
-            var books = DependencyResolver.Current.GetService<BookBO>().GetBooksList();
-            var authors = DependencyResolver.Current.GetService<AuthorBO>().GetAuthorsList();
+        //public ActionResult _UsersOrders(int id)
+        //{
+        //    var orders = DependencyResolver.Current.GetService<OrderBO>();
+        //    var userOrders = orders.GetOrdersList().Where(o => o.UserId == id).ToList();
+        //    var books = DependencyResolver.Current.GetService<BookBO>().GetBooksList();
+        //    var authors = DependencyResolver.Current.GetService<AuthorBO>().GetAuthorsList();
 
-            ViewBag.TopOrders = userOrders.Select(m => mapper.Map<OrderView>(m)).ToList().Distinct().Take(5);
-            ViewBag.Books = books.Select(m => mapper.Map<BookView>(m)).ToList();
-            ViewBag.Authors = authors.Select(m => mapper.Map<AuthorView>(m)).ToList();
+        //    ViewBag.TopOrders = userOrders.Select(m => mapper.Map<OrderView>(m)).ToList().Distinct().Take(5);
+        //    ViewBag.Books = books.Select(m => mapper.Map<BookView>(m)).ToList();
+        //    ViewBag.Authors = authors.Select(m => mapper.Map<AuthorView>(m)).ToList();
 
-            return PartialView("Partial/_UsersOrders");
-        }
+        //    return PartialView("Partial/_UsersOrders");
+        //}
     }
 }

@@ -11,21 +11,19 @@ namespace WebApplication2.Controllers
 {
     public class GenreController : Controller
     {
-
         protected IMapper mapper;
 
         public GenreController(IMapper mapper)
         {
             this.mapper = mapper;
         }
-        // GET: Genre
+
         public ActionResult Index()
         {
             var genreBO = DependencyResolver.Current.GetService<GenreBO>();
             var genreList = genreBO.GetGenreList();
             ViewBag.Genres = genreList.Select(m => mapper.Map<GenreView>(m)).ToList();
 
-         
             return View();
         }
 
@@ -36,15 +34,13 @@ namespace WebApplication2.Controllers
             if (id != null)
             {
                 var genreList = genreBO.GetGenresListById(id);
-                model = mapper.Map<GenreView>(genreList);
-                ViewBag.Message = "Edit";
+                model = mapper.Map<GenreView>(genreList);    
             }
-            else ViewBag.Message = "Create";
 
             return View(model);
         }
 
-[HttpPost]
+        [HttpPost]
         public ActionResult Edit(GenreView model)
         {
             var genreBO = mapper.Map<GenreBO>(model);
@@ -52,15 +48,13 @@ namespace WebApplication2.Controllers
 
             return RedirectToActionPermanent("Index", "Genre");
         }
-
-
-        //    // GET: Genre/Delete/5
-            public ActionResult Delete(int id)
-        {
+       
+         public ActionResult Delete(int id)
+         {
             var genre = DependencyResolver.Current.GetService<GenreBO>().GetGenresListById(id);
             genre.Delete(id);
 
             return RedirectToActionPermanent("Index", "Genre");
-        }
+         }
     }
 }

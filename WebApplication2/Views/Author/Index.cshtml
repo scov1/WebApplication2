@@ -1,87 +1,54 @@
-﻿@*@model WebApplication2.ViewModel.AuthorView
+﻿@model WebApplication2.ViewModel.AuthorView
+
+<link href="~/Content/style.css" rel="stylesheet" />
+
+<div class="btn_create">
+    @Ajax.ActionLink("Создать автора", "Edit", new { id = 0 }, new AjaxOptions { UpdateTargetId = "edit_author" })
+</div>
 
 
 @{
     ViewBag.Title = "Index";
+    List<WebApplication2.ViewModel.AuthorView> authors = ViewBag.Authors;
 }
-    <div class="btn_create">
-    @Html.ActionLink("Создать", "Edit", "Author")
-
-</div>
-<table class="table">
-    <thead>
-        <tr>
-            <th scope="col">Имя</th>
-            <th scope="col">Фамилия</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            @foreach (var item in ViewBag.Authors)
-            {
-            <tr>
-                <th scope="row">@item.FirstName</th>
-                <th scope="row">@item.LastName</th>
-                <td scope="row">@Html.ActionLink("Редактировать", "Edit", "Author", new { id = @item.Id }, null)</td>
-                <td scope="row">@Html.ActionLink("Удалить", "Delete", "Author", new { id = @item.Id }, null)</td>
-            </tr>
-
-        }
-    </table>*@
 
 
-    <link href="~/Content/style.css" rel="stylesheet" />
-
-    @{
-        ViewBag.Title = "Index";
-        List<WebApplication2.ViewModel.AuthorView> authors = ViewBag.Authors;
-    }
-
-    @*@Html.ActionLink("Create author", "Edit")*@
-
-    @Html.Partial("Partial/_MyPartialView", @ViewBag.AuthorsTop as List<WebApplication2.ViewModel.AuthorView>)
-
- 
-    <button type="button" class="createButton btn btn-primary">Создать</button>
+@Html.Partial("ViewAuthor", Model)
 
 
-    <div id="createOrEdit">
-        @*@Html.Partial("Partial/EditPartialView", new WebApplication2.ViewModel.AuthorView())*@
+
+
+@*<div class="btn_create">
+        @Html.ActionLink("Создать", "Edit", "Author")
+
     </div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Имя</th>
+                <th scope="col">Фамилия</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                @foreach (var item in ViewBag.Authors)
+                {
+                <tr>
+                    <th scope="row">@item.FirstName</th>
+                    <th scope="row">@item.LastName</th>
+                    <td scope="row">@Html.ActionLink("Редактировать", "Edit", "Author", new { id = @item.Id }, null)</td>
+                    <td scope="row">@Html.ActionLink("Удалить", "Delete", "Author", new { id = @item.Id }, null)</td>
+                </tr>
 
-    <script src="http://code.jquery.com/jquery-3.1.1.min.js"></script>
-    <script type="text/javascript">
-      
-        function EditView() {
-            $.ajax({
-                url: '@Url.Action("Edit")',
-                method: 'GET',
-                success: function (data) {
-                    $("#createOrEdit").html(data);
-                }
-            })
-        }
+            }
+        </table>*@
 
-        $(".createButton").click(() => {
-            $.ajax({
-                url: '@Url.Action("Edit")',
-                method: 'GET',
-                success: function (data) {
-                    $("#createOrEdit").html(data);
-                    $("#modal").modal("show");
-                }
-            })
-        })
-        function EditButton(idEdit) {
-            console.log(idEdit)
-            $.ajax({
-                url: '@Url.Action("Edit")',
-                method: 'GET',
-                data: { id: idEdit },
-                success: function (data) {
-                    $("#createOrEdit").html(data);
-                    $("#modal").modal("show");
-                }
-            })
-        }
-    </script>
+
+@*@Html.ActionLink("Create author", "Edit")*@
+
+
+
+@*<button type="button" class="createButton btn btn-primary">Создать</button>")*@
+
+
+

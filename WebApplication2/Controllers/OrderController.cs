@@ -97,28 +97,7 @@ namespace WebApplication2.Controllers
         //    return RedirectToAction("Index", "Order");
         //}
 
-        //public ActionResult Link(Orders order)
-        //{
-        //    Users user;
-
-        //    using (Model1 db = new Model1())
-        //    {
-        //        user = db.Users.Where(x => x.Id == order.Id).FirstOrDefault();
-        //    }
-
-        //    MailAddress from = new MailAddress("seda8888-92@mail.ru", "Верните книгу");
-        //    MailAddress to = new MailAddress(user.Email);
-        //    MailMessage m = new MailMessage(from, to);
-        //    m.Subject = "Верните книгу";
-        //    m.Body = string.Format("Верните книгу,вы просрочили книгу");
-        //    m.IsBodyHtml = true;
-        //    SmtpClient smtp = new SmtpClient("smtp.mail.ru", 587);
-        //    smtp.Credentials = new NetworkCredential("seda8888-92@mail.ru", "seda8899");
-        //    smtp.EnableSsl = true;
-        //    smtp.Send(m);
-        //    return RedirectToAction("Index");
-
-        //}
+     
 
         //public ActionResult Download()
         //{
@@ -142,15 +121,7 @@ namespace WebApplication2.Controllers
 
         public ActionResult Index(string sort)
         {
-            //var orderBO = DependencyResolver.Current.GetService<OrderBO>();
-            //var userBO = DependencyResolver.Current.GetService<UserBO>();
-            //var bookBO = DependencyResolver.Current.GetService<BookBO>();
-
-            //ViewBag.Orders = orderBO.GetOrdersList().Select(m => mapper.Map<OrderView>(m)).ToList();
-            //ViewBag.Users = userBO.GetUsersList().Select(m => mapper.Map<UserView>(m)).ToList();
-            //ViewBag.Books = bookBO.GetBooksList().Select(m => mapper.Map<BookView>(m)).ToList();
-
-            //return View();
+     
             var orderBO = DependencyResolver.Current.GetService<OrderBO>();
             var userBO = DependencyResolver.Current.GetService<UserBO>();
             var bookBO = DependencyResolver.Current.GetService<BookBO>();
@@ -162,12 +133,15 @@ namespace WebApplication2.Controllers
             {
                 if (sort == "Period")
                 {
-                    var orders = orderBO.GetOrdersList().Select(m => mapper.Map<OrderView>(m)).ToList();
+                    var orders = orderBO.GetOrdersList().Select(x => mapper.Map<OrderView>(x)).ToList();
                     ViewBag.Orders = orders.OrderBy(o => o.Period);
 
                 }
                 else if (sort == "None")
-                    ViewBag.Orders = orderBO.GetOrdersList().Select(m => mapper.Map<OrderView>(m)).ToList();
+                {
+                    ViewBag.Orders = orderBO.GetOrdersList().Select(x => mapper.Map<OrderView>(x)).ToList();
+                }
+                 
                 return PartialView("Partial/OrderPartialView");
             }
             else
@@ -178,28 +152,9 @@ namespace WebApplication2.Controllers
             return View();
         }
 
-        // GET: Order/Edit/5
+     
         public ActionResult Edit(int? id)
         {
-            //var userBO = DependencyResolver.Current.GetService<UserBO>();
-            //var bookBO = DependencyResolver.Current.GetService<BookBO>();
-
-            //var orderBO = DependencyResolver.Current.GetService<OrderBO>();
-            //var OrdersView = orderBO.GetOrdersListById(id);
-            //var model = mapper.Map<OrderView>(OrdersView);
-
-            //if (id != null)
-            //{
-            //    var orderBOList = orderBO.GetOrdersListById(id);
-            //    model = mapper.Map<OrderView>(orderBOList);
-            //    ViewBag.Message = "Edit";
-            //}
-            //else ViewBag.Message = "Create";
-
-            //ViewBag.Users = new SelectList(userBO.GetUsersList().Select(m => mapper.Map<UserView>(m)).ToList(), "Id", "FIO");
-            //ViewBag.Books = new SelectList(bookBO.GetBooksList().Select(m => mapper.Map<BookView>(m)).ToList(), "Id", "Title");
-
-            //return View(model);
             var userBO = DependencyResolver.Current.GetService<UserBO>();
             var bookBO = DependencyResolver.Current.GetService<BookBO>();
 
@@ -212,7 +167,6 @@ namespace WebApplication2.Controllers
                 model = mapper.Map<OrderView>(orderBOList);
                
             }
-           
 
             model.ReturnDate = null;
 
@@ -222,51 +176,33 @@ namespace WebApplication2.Controllers
             return View(model);
         }
 
-        // POST: Order/Edit/5
         [HttpPost]
         public ActionResult Edit(OrderView model)
         {
-            //var orderBO = mapper.Map<OrderBO>(model);
-            //if (model.Id == 0)
-            //{
-            //    var allow = orderBO.GetOrdersList().Select(m => mapper.Map<OrderView>(m)).Where(o => o.UserId == model.UserId).ToList();
-            //    var list = allow.Where(a => a.Period < DateTime.Today && a.CreationDate == a.ReturnDate).ToList();
-
-            //    if (list.Count == 0)
-            //    {
-            //        orderBO.CreationDate = DateTime.Today;
-            //        if (model.ReturnDate == null) orderBO.ReturnDate = DateTime.Today;
-            //        orderBO.Save();
-            //    }
-            //}
-            //else
-            //{
-            //    orderBO.CreationDate = DateTime.Today;
-            //    if (model.ReturnDate == null) orderBO.ReturnDate = DateTime.Today;
-            //    orderBO.Save();
-            //}
-
-            //return RedirectToActionPermanent("Index", "Order");
-
-         
-
             if (model.Id == 0)
             {
                 var orderBO = mapper.Map<OrderBO>(model);
-                var allow = orderBO.GetOrdersList().Select(m => mapper.Map<OrderView>(m)).Where(o => o.UserId == model.UserId).ToList();
-                var list = allow.Where(a => a.Period < DateTime.Today && a.CreationDate == a.ReturnDate).ToList();
+                var check = orderBO.GetOrdersList().Select(x => mapper.Map<OrderView>(x)).Where(z => z.UserId == model.UserId).ToList();
+                var list = check.Where(y => y.Period < DateTime.Today && y.CreationDate == y.ReturnDate).ToList();
 
                 if (list.Count == 0)
                 {
                     orderBO.CreationDate = DateTime.Today;
-                    if (model.ReturnDate == null) orderBO.ReturnDate = orderBO.CreationDate;
+
+                    if (model.ReturnDate == null)
+                    {
+                        orderBO.ReturnDate = orderBO.CreationDate;
+                    } 
                     orderBO.Save();
                 }
             }
             else
             {
-               if (model.ReturnDate == null) model.ReturnDate = DateTime.Now;
-               
+                if (model.ReturnDate == null)
+                {
+                    model.ReturnDate = DateTime.Now;
+                }
+
                 model.CreationDate = DateTime.Today;
                 var orderBO = mapper.Map<OrderBO>(model);
                 orderBO.Save();
@@ -275,7 +211,6 @@ namespace WebApplication2.Controllers
             return RedirectToActionPermanent("Index", "Order");
         }
 
-        // GET: Order/Delete/5
         public ActionResult Delete(int id)
         {
             var orderBO = DependencyResolver.Current.GetService<OrderBO>().GetOrdersListById(id);
@@ -284,7 +219,7 @@ namespace WebApplication2.Controllers
             return RedirectToActionPermanent("Index", "Order");
         }
 
-        public ActionResult SendEmail(int id)
+        public ActionResult Email(int id)
         {
             var orderBO = DependencyResolver.Current.GetService<OrderBO>().GetOrdersListById(id);
             var order = mapper.Map<OrderView>(orderBO);
@@ -294,87 +229,39 @@ namespace WebApplication2.Controllers
             var userMail = mapper.Map<UserView>(userBO);
 
 
-          
-
-            MailAddress from = new MailAddress("seda8888-92@mail.ru", "Верните книгу");
+            MailAddress from = new MailAddress("seda8888-92@mail.ru", "Верните книгу!");
             MailAddress to = new MailAddress(userMail.Email);
-            MailMessage message = new MailMessage(from, to);
-            message.Subject = "Приветики,пистолетики";
-            message.Body = string.Format("Верните книгу,вы ее уже просрочили");
-            message.IsBodyHtml = false;
+            MailMessage mes = new MailMessage(from, to);
+            mes.Subject = "Приветики,пистолетики";
+            mes.Body = string.Format("Верните книгу,вы ее уже просрочили,у вас совесть есть??");
+            mes.IsBodyHtml = false;
             SmtpClient smtp = new SmtpClient("smtp.mail.ru", 587);
             smtp.Credentials = new NetworkCredential("seda8888-92@mail.ru", "zvezda8899");
             smtp.EnableSsl = true;
-            smtp.Send(message);
+            smtp.Send(mes);
 
             return RedirectToActionPermanent("Index", "Order");
         }
 
-        public ActionResult FileDeadline()
+        public ActionResult Dowloand()
         {
             List<OrderView> debtor = new List<OrderView>();
 
             var orderBO = DependencyResolver.Current.GetService<OrderBO>().GetOrdersList();
             var userBO = DependencyResolver.Current.GetService<UserBO>();
 
-            //deadlines = orderBO.Select(m => mapper.Map<OrderView>(m)).Where(o => o.CreationDate == o.ReturnDate && DateTime.Today > o.Period).ToList();
+           
             debtor = orderBO.Select(m => mapper.Map<OrderView>(m)).Where(o =>DateTime.Today > o.Period).ToList();
-            //string path = @"C:\Test\debtor.txt";
-
-
-            //using (FileStream fs = new FileStream(path, FileMode.OpenOrCreate))
-            //{
-            //    using (StreamWriter sw = new StreamWriter(fs, System.Text.Encoding.Unicode))
-            //    {
-            //        foreach (var item in debtor)
-            //        {
-            //            var user = mapper.Map<UserView>(userBO.GetUsersListById(item.UserId));
-            //            string fio = user.FIO;
-            //            sw.WriteLine($"User: {fio}   CreationDate: {item.CreationDate}  Period: {item.Period}");
-            //        }
-            //    }
-            //}
-
-            //#region MemoryStream
-            ////    //byte[] data = new byte[5000];
-            ////    //MemoryStream ms = new MemoryStream(data);
-            ////    //StreamWriter sw = new StreamWriter(ms);
-
-            ////    //foreach (var item in links)
-            ////    //    if (item.Deadline < DateTime.Now)
-            ////    //    {
-            ////    //        string fio = db.Users.Where(u => u.Id == item.UserId).FirstOrDefault().FIO;
-            ////    //        sw.WriteLine($"User: {fio}   CreationDate: {item.CreationDate}  Deadline: {item.Deadline}");
-            ////    //    }
-            ////    //sw.Flush();
-            ////    //sw.Close();
-            ////    ////sr.Close();
-            ////    //string dir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-            ////    //FileStream file = new FileStream($@"{dir}\test.txt", FileMode.OpenOrCreate);
-            ////    //ms.CopyTo(file);
-            ////    ////return File(ms, "text/plain");
-            //#endregion
-
-            //return RedirectToActionPermanent("Index", "Order");
-
+  
             StringBuilder sb = new StringBuilder();
-            string header = "#\tUser\tBook\tReturn";
-            sb.Append(header);
-            sb.Append("\n");
-            sb.Append('-', header.Length * 2);
-            sb.Append("\n");
-         
-            foreach (var item in debtor)
-            {
-
-                sb.Append((debtor.IndexOf(item) + 1) + "\t" + item + "\t" + item.BookId  + "\t" + item.Period + "\r\n");
-            }
-
+            string about = "\tUser\tBook\tReturn";
+            sb.Append(about);
+     
             foreach (var item in debtor)
             {
                 var user = mapper.Map<UserView>(userBO.GetUsersListById(item.UserId));
                 string fio = user.FIO;
-                sb.Append($"User: {fio}   CreationDate: {item.CreationDate}  Period: {item.Period}");
+                sb.Append($"\n\tUser: {fio}  \tCreationDate: {item.CreationDate}  \tPeriod: {item.Period}");
             }
             byte[] data = Encoding.ASCII.GetBytes(sb.ToString());
 

@@ -77,6 +77,7 @@ namespace WebApplication2.Controllers
         //    }
         //    return RedirectToAction("Index", "Book");
         //}
+
         protected IMapper mapper;
 
         public BookController(IMapper mapper)
@@ -87,17 +88,19 @@ namespace WebApplication2.Controllers
         public ActionResult Index()
         {
             var bookBO = DependencyResolver.Current.GetService<BookBO>();
+
             var bookList = bookBO.GetBooksList();
             var authorList = DependencyResolver.Current.GetService<AuthorBO>().GetAuthorsList();
             var genreList = DependencyResolver.Current.GetService<GenreBO>().GetGenreList();
 
-            ViewBag.Books = bookList.Select(m => mapper.Map<BookView>(m)).ToList();
-            ViewBag.Authors = authorList.Select(m => mapper.Map<AuthorView>(m)).ToList();
-            ViewBag.Genres = genreList.Select(m => mapper.Map<GenreView>(m)).ToList();
+            ViewBag.Books = bookList.Select(x => mapper.Map<BookView>(x)).ToList();
+            ViewBag.Authors = authorList.Select(x => mapper.Map<AuthorView>(x)).ToList();
+            ViewBag.Genres = genreList.Select(x => mapper.Map<GenreView>(x)).ToList();
+
             return View();
         }
 
-        // GET: Book/Edit/5
+
         public ActionResult Edit(int? id)
         {
             var bookBO = DependencyResolver.Current.GetService<BookBO>();
@@ -109,50 +112,18 @@ namespace WebApplication2.Controllers
             {
                 var bookBOList = bookBO.GetBooksListById(id);
                 model = mapper.Map<BookView>(bookBOList);
-               
             }
-      
 
-            ViewBag.Authors = new SelectList(authors.GetAuthorsList().Select(m => mapper.Map<AuthorView>(m)).ToList(), "Id", "LastName");
-            ViewBag.Genres = new SelectList(genres.GetGenreList().Select(m => mapper.Map<GenreView>(m)).ToList(), "Id", "Name");
+            ViewBag.Authors = new SelectList(authors.GetAuthorsList().Select(x => mapper.Map<AuthorView>(x)).ToList(), "Id", "LastName");
+            ViewBag.Genres = new SelectList(genres.GetGenreList().Select(x => mapper.Map<GenreView>(x)).ToList(), "Id", "Name");
+
             return View(model);
         }
 
-        // POST: Book/Edit/5
+    
         [HttpPost]
-        public ActionResult Edit(BookView model, HttpPostedFileBase imageBook/*, int genre, int author*/)
+        public ActionResult Edit(BookView model, HttpPostedFileBase imageBook)
         {
-
-            //if (ModelState.IsValid)
-            //{
-            //bookBO.Save();
-            //return RedirectToActionPermanent("Index", "Book");
-
-            //// массив для хранения бинарных данных файла
-            //byte[] imageData;
-            //using (System.IO.FileStream fs = new System.IO.FileStream(filename, FileMode.Open))
-            //{
-            //    imageData = new byte[fs.Length];
-            //    fs.Read(imageData, 0, imageData.Length);
-            //}
-
-            //}
-            //else return View(model);
-
-
-            //if (ModelState.IsValid && upload != null)
-            //{
-            //    byte[] imageData = null;
-            //    // считываем переданный файл в массив байтов
-            //    using (var binaryReader = new BinaryReader(upload.InputStream))
-            //    {
-            //        imageData = binaryReader.ReadBytes(upload.ContentLength);
-            //    }
-            //    // установка массива байтов
-            //    bookBO.ImageData = imageData;
-            //}
-
-            //bookBO.Save();
             string str = "check";
             var bookBO = mapper.Map<BookBO>(model);
             byte[] imageData = null;
@@ -164,29 +135,18 @@ namespace WebApplication2.Controllers
                 }
                 bookBO.ImageData = imageData;
             }
-      
-       
-  
             else
             {
                 bookBO.ImageData = new byte[str.Length];
             }
 
-            //bookBO.GenreId = genre;
-            //bookBO.AuthorId = author;
             bookBO.Save();
-
             var books = DependencyResolver.Current.GetService<BookBO>().GetBooksList();
-
-            //var authorList = DependencyResolver.Current.GetService<AuthorBO>().GetAuthorsList();
-            //var genreList = DependencyResolver.Current.GetService<GenreBO>().GetGenreList();
-            //ViewBag.Authors = authorList.Select(m => mapper.Map<AuthorView>(m)).ToList();
-            //ViewBag.Genres = genreList.Select(m => mapper.Map<GenreView>(m)).ToList();
 
             return RedirectToActionPermanent("Index", "Book");
         }
 
-        // GET: Book/Delete/5
+
         public ActionResult Delete(int id)
         {
             var book = DependencyResolver.Current.GetService<BookBO>().GetBooksListById(id);
