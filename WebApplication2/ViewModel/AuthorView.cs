@@ -13,7 +13,7 @@ namespace WebApplication2.ViewModel
         [Required(ErrorMessage = "Обязательно поле")]
         public string FirstName { get; set; }
 
-        [RegularExpression(@"[A-Za-z]@")]
+        //[RegularExpression(@"[A-Za-z]@")]
         [StringLength(30, MinimumLength = 2, ErrorMessage = "Фамилия должна быть более двух букв")]
         public string LastName { get; set; }
     }

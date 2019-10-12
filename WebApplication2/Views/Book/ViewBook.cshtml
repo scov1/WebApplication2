@@ -1,0 +1,27 @@
+﻿<link href="~/Content/style.css" rel="stylesheet" />
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Название книги</th>
+            <th scope="col">Кол-во Страниц</th>
+            <th scope="col">Цена</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            @foreach (var item in ViewBag.Books)
+            {
+        <tr>
+            <th scope="row">@item.Title</th>
+            <th scope="row">@item.Pages</th>
+            <th scope="row">@item.Price</th>
+            <td>
+                @Ajax.ActionLink("Edit", "Edit", new { id = item.Id }, new AjaxOptions { UpdateTargetId = "modal-body" }, new { data_toggle = "modal", data_target = "#exampleModalScrollable" }) |
+                @Ajax.ActionLink("Delete", "Delete", new { id = item.Id }, new AjaxOptions { UpdateTargetId = "authors-content" })
+            </td>
+        </tr>
+
+        }
+    </table>
