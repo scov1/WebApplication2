@@ -138,18 +138,18 @@ namespace WebApplication2.Controllers
             return RedirectToActionPermanent("Index", "User");
         }
 
-        //public ActionResult _UsersOrders(int id)
-        //{
-        //    var orders = DependencyResolver.Current.GetService<OrderBO>();
-        //    var userOrders = orders.GetOrdersList().Where(o => o.UserId == id).ToList();
-        //    var books = DependencyResolver.Current.GetService<BookBO>().GetBooksList();
-        //    var authors = DependencyResolver.Current.GetService<AuthorBO>().GetAuthorsList();
+        public ActionResult UsersOrders(int id)
+        {
+            var orders = DependencyResolver.Current.GetService<OrderBO>();
+            var userOrders = orders.GetOrdersList().Where(o => o.UserId == id).ToList();
+            var books = DependencyResolver.Current.GetService<BookBO>().GetBooksList();
+            var authors = DependencyResolver.Current.GetService<AuthorBO>().GetAuthorsList();
 
-        //    ViewBag.TopOrders = userOrders.Select(m => mapper.Map<OrderView>(m)).ToList().Distinct().Take(5);
-        //    ViewBag.Books = books.Select(m => mapper.Map<BookView>(m)).ToList();
-        //    ViewBag.Authors = authors.Select(m => mapper.Map<AuthorView>(m)).ToList();
+            ViewBag.TopOrders = userOrders.Select(m => mapper.Map<OrderView>(m)).ToList().Distinct().Take(5);
+            ViewBag.Books = books.Select(m => mapper.Map<BookView>(m)).ToList();
+            ViewBag.Authors = authors.Select(m => mapper.Map<AuthorView>(m)).ToList();
 
-        //    return PartialView("Partial/_UsersOrders");
-        //}
+            return PartialView("Partial/UsersOrders");
+        }
     }
 }

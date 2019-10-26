@@ -1,0 +1,43 @@
+﻿@model WebApplication2.ViewModel.UserView
+
+@{
+    List<WebApplication2.ViewModel.BookView> books = ViewBag.Books;
+    List<WebApplication2.ViewModel.AuthorView> authors = ViewBag.Authors;
+}
+
+<table class="table">
+   
+    <tr>
+        <th scope="col">Title</th>
+        <th scope="col">|</th>
+        <th scope="col">Author</th>
+
+    </tr>
+
+    <tbody>
+        @foreach (var item in ViewBag.TopOrders)
+        {
+            WebApplication2.ViewModel.BookView book = books.Where(b => b.Id == item.BookId).FirstOrDefault();
+            WebApplication2.ViewModel.AuthorView author = authors.Where(a => a.Id == book.AuthorId).FirstOrDefault();
+
+
+            string title = book.Title;
+            string authorName = author.FirstName + " " + author.LastName;
+
+
+        <tr>
+            <td scope="row">@title</td>
+            <td scope="row">|</td>
+            <td scope="row">@authorName</td>
+        </tr>
+        }
+    </tbody>
+</table>
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

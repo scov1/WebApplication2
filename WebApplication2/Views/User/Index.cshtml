@@ -19,14 +19,16 @@
         <tbody>
             <tr>
                 @foreach (var item in ViewBag.Users)
-            {
+                {
                 <tr>
                     <th scope="row">@item.FIO</th>
                     <th scope="row">@item.Email</th>
+
+                    <td scope="row">@Ajax.ActionLink("История заказов", "UsersOrders", new { id = @item.Id }, new AjaxOptions { UpdateTargetId = "orders" }) </td>
                     <td scope="row">@Html.ActionLink("Редактировать", "Edit", "User", new { id = @item.Id }, null)</td>
                     <td scope="row">@Html.ActionLink("Удалить", "Delete", "User", new { id = @item.Id }, null)</td>
                 </tr>
 
-                }
+            }
         </table>
     </div>
