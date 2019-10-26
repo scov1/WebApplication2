@@ -1,4 +1,5 @@
 using System;
+using System.Web.Http;
 using System.Web.Mvc;
 using Unity;
 using Unity.AspNet.Mvc;
@@ -6,9 +7,6 @@ using WebApplication2.App_Start;
 
 namespace WebApplication2
 {
-    /// <summary>
-    /// Specifies the Unity configuration for the main container.
-    /// </summary>
     public static class UnityConfig
     {
         #region Unity Container
