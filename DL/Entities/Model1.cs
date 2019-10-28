@@ -15,6 +15,7 @@ namespace DL.Entities
         public Model1()
             : base("name=Model11")
         {
+            Database.SetInitializer<Model1>(new MyInitializer());
         }
 
 

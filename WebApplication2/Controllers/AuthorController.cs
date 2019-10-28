@@ -159,7 +159,8 @@ namespace WebApplication2.Controllers
     public ActionResult Index()
         {
             var authorBO = DependencyResolver.Current.GetService<AuthorBO>();
-            var authorList = authorBO.GetAuthorsList();
+            var authorList = authorBO.GetAuthorsList().OrderBy(n => n.LastName);
+
             ViewBag.Authors = authorList.Select(x => mapper.Map<AuthorView>(x)).ToList();
 
             List<AuthorView> topAuthor = new List<AuthorView>();
@@ -171,7 +172,7 @@ namespace WebApplication2.Controllers
                 topAuthor.Add(authorList.Select(a => mapper.Map<AuthorView>(a)).Where(a => a.Id == item.AuthorId).FirstOrDefault());
             }
 
-            ViewBag.Authors = authorList.Select(item => mapper.Map<AuthorView>(item)).ToList();
+          
             ViewBag.AuthorsTop = topAuthor.Distinct().Take(5);
 
             return View();

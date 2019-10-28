@@ -13,71 +13,6 @@ namespace WebApplication2.Controllers
 {
     public class BookController : Controller
     {
-        //// GET: Author
-        //public ActionResult Index()
-        //{
-        //    List<Books> books;
-
-        //    using (Model1 db = new Model1())
-        //    {
-        //        books = db.Books.ToList();
-        //    }
-
-        //    return View(books);
-        //}
-
-
-
-        //[HttpGet]
-        //public ActionResult CreateOrEdit(int? id)
-        //{
-        //    Books book = new Books();
-
-        //    if (id != null)
-        //        using (Model1 db = new Model1())
-        //        {
-        //            book = db.Books.Where(x => x.Id == id).FirstOrDefault();
-        //        }
-        //    return View(book);
-        //}
-
-
-        //[HttpPost]
-        //public ActionResult CreateOrEdit(Books book)
-        //{
-
-        //    using (Model1 db = new Model1())
-        //    {
-        //        if (book.Id != 0)
-        //        {
-        //            var oldBook = db.Books.Where(x => x.Id == book.Id).FirstOrDefault();
-        //            oldBook.Title = book.Title;
-        //            oldBook.Price = book.Price;
-        //            oldBook.Pages = book.Pages;
-        //            db.SaveChanges();
-        //        }
-        //        else
-        //        {
-        //            db.Books.Add(book);
-        //            db.SaveChanges();
-        //        }
-
-        //    }
-
-        //    return RedirectToActionPermanent("Index", "Book");
-        //}
-
-        //public ActionResult Delete(int id)
-        //{
-        //    using (Model1 db = new Model1())
-        //    {
-        //        var book = db.Books.Where(a => a.Id == id).FirstOrDefault();
-        //        db.Books.Remove(book);
-        //        db.SaveChanges();
-        //    }
-        //    return RedirectToAction("Index", "Book");
-        //}
-
         protected IMapper mapper;
 
         public BookController(IMapper mapper)
@@ -106,7 +41,7 @@ namespace WebApplication2.Controllers
             var bookBO = DependencyResolver.Current.GetService<BookBO>();
             var authors = DependencyResolver.Current.GetService<AuthorBO>();
             var model = mapper.Map<BookView>(bookBO);
-            var genres = DependencyResolver.Current.GetService<GenreBO>();
+            //var genres = DependencyResolver.Current.GetService<GenreBO>();
 
             if (id != null)
             {
@@ -114,15 +49,19 @@ namespace WebApplication2.Controllers
                 model = mapper.Map<BookView>(bookBOList);
             }
 
-            ViewBag.Authors = new SelectList(authors.GetAuthorsList().Select(x => mapper.Map<AuthorView>(x)).ToList(), "Id", "LastName");
-            ViewBag.Genres = new SelectList(genres.GetGenreList().Select(x => mapper.Map<GenreView>(x)).ToList(), "Id", "Name");
+            //ViewBag.Authors = new SelectList(authors.GetAuthorsList().Select(x => mapper.Map<AuthorView>(x)).ToList(), "Id", "LastName");
+            //ViewBag.Genres = new SelectList(genres.GetGenreList().Select(x => mapper.Map<GenreView>(x)).ToList(), "Id", "Name");
 
+            if (Request.IsAjaxRequest())
+            {
+                return PartialView("Partial/EditPartialView", model);
+            }
             return View(model);
         }
 
     
         [HttpPost]
-        public ActionResult Edit(BookView model, HttpPostedFileBase imageBook)
+        public ActionResult Edit(BookView model, HttpPostedFileBase imageBook, int genre, int author)
         {
             string str = "check";
             var bookBO = mapper.Map<BookBO>(model);
@@ -139,11 +78,17 @@ namespace WebApplication2.Controllers
             {
                 bookBO.ImageData = new byte[str.Length];
             }
-
+            bookBO.GenreId = genre;
+            bookBO.AuthorId = author;
             bookBO.Save();
             var books = DependencyResolver.Current.GetService<BookBO>().GetBooksList();
+            var authorList = DependencyResolver.Current.GetService<AuthorBO>().GetAuthorsList();
+            var genreList = DependencyResolver.Current.GetService<GenreBO>().GetGenreList();
+            ViewBag.Authors = authorList.Select(m => mapper.Map<AuthorView>(m)).ToList();
+            ViewBag.Genres = genreList.Select(m => mapper.Map<GenreView>(m)).ToList();
 
-            return RedirectToActionPermanent("Index", "Book");
+            //return RedirectToActionPermanent("Index", "Book");
+            return PartialView("Partial/BookPartialView", books.Select(m => mapper.Map<BookView>(m)).ToList());
         }
 
 
@@ -153,6 +98,22 @@ namespace WebApplication2.Controllers
             book.Delete(id);
 
             return RedirectToActionPermanent("Index", "Book");
+        }
+
+        [HttpGet]
+        public ActionResult GenreDropDown()
+        {
+            var genreBO = DependencyResolver.Current.GetService<GenreBO>().GetGenreList();
+            var genreList = genreBO.Select(m => mapper.Map<GenreView>(m)).ToList();
+            return Json(genreList.Select(g => new { g.Id, g.Name }).ToList(), JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public ActionResult AuthorDropDown()
+        {
+            var authorBO = DependencyResolver.Current.GetService<AuthorBO>().GetAuthorsList();
+            var authorList = authorBO.Select(m => mapper.Map<AuthorView>(m)).ToList();
+            return Json(authorList.Select(g => new { g.Id, g.LastName }).ToList(), JsonRequestBehavior.AllowGet);
         }
     }
 }

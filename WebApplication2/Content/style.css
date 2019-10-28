@@ -32,3 +32,7 @@ select {
 a{
     color:darkslateblue;
 }
+
+.form-control{
+    height:25px;
+}

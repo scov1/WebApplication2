@@ -1,5 +1,7 @@
-﻿using System;
+﻿using DL;
+using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Http;
@@ -20,6 +22,8 @@ namespace WebApplication2
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             GlobalConfiguration.Configure(WebApiConfig.Register);
+
+            //Database.SetInitializer(new MyInitializer());
         }
 
         protected void Application_Error()

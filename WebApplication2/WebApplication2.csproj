@@ -244,6 +244,8 @@
     <Content Include="Views\Author\ViewAuthor.cshtml" />
     <Content Include="Views\Book\ViewBook.cshtml" />
     <Content Include="Views\User\Partial\UsersOrders.cshtml" />
+    <Content Include="Views\Book\Partial\EditPartialView.cshtml" />
+    <Content Include="Views\Book\Partial\BookPartialView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -8,10 +8,29 @@
 
 @{
     ViewBag.Title = "Index";
-    List<WebApplication2.ViewModel.BookView> authors = ViewBag.Books;
+    List<WebApplication2.ViewModel.AuthorView> authors = ViewBag.Authors;
+    List<WebApplication2.ViewModel.GenreView> genres = ViewBag.Genres;
 }
 
+<div id="createOrEdit">
+    @Html.Partial("Partial/EditPartialView", new WebApplication2.ViewModel.BookView())
+</div>
+
+<div id="bookList">
+    @Html.Partial("Partial/BookPartialView", ViewBag.Books as List<WebApplication2.ViewModel.BookView>, new ViewDataDictionary { { "authors", authors }, { "genres", genres } })
+</div>
 
 @Html.Partial("ViewBook", Model)
 
-
+<script src="http://code.jquery.com/jquery-3.1.1.min.js"></script>
+<script type="text/javascript">
+        function Refresh() {
+            $.ajax({
+                url: '@Url.Action("Index")',
+                method: "GET",
+                success: function (data) {
+                    $("#bookList").html(data);
+                }
+            })
+        }
+</script>

@@ -1,18 +1,16 @@
-namespace DL.Migrations
+﻿using DL.Entities;
+using System;
+using System.Collections.Generic;
+using System.Data.Entity;
+using System.Data.Entity.Migrations;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace DL
 {
-    using DL.Entities;
-    using System;
-    using System.Data.Entity;
-    using System.Data.Entity.Migrations;
-    using System.Linq;
-
-    internal sealed class Configuration : DbMigrationsConfiguration<DL.Entities.Model1>
+    public class MyInitializer : CreateDatabaseIfNotExists<Model1>
     {
-        public Configuration()
-        {
-            AutomaticMigrationsEnabled = false;
-        }
-
         protected override void Seed(DL.Entities.Model1 context)
         {
             //  This method will be called after migrating to the latest version.
@@ -27,7 +25,7 @@ namespace DL.Migrations
             context.Authors.AddOrUpdate(author2);
 
 
-            Genres genre = new Entities.Genres { Id =1, Name = "Horror" };
+            Genres genre = new Entities.Genres { Id = 1, Name = "Horror" };
             Genres genre2 = new Entities.Genres { Id = 2, Name = "Multik" };
             context.Genres.AddOrUpdate(genre);
             context.Genres.AddOrUpdate(genre2);

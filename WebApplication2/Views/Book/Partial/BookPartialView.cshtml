@@ -1,0 +1,33 @@
+﻿@model List<WebApplication2.ViewModel.BookView>
+@{
+    List<WebApplication2.ViewModel.AuthorView> authors = (List<WebApplication2.ViewModel.AuthorView>)ViewData["authors"];
+    List<WebApplication2.ViewModel.GenreView> genres = (List<WebApplication2.ViewModel.GenreView>)ViewData["genres"];
+}
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">Author</th>
+            <th scope="col">Title</th>
+            <th scope="col">Pages</th>
+            <th scope="col">Price</th>
+            <th scope="col">Genre</th>
+            
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            string author = authors.Where(a => a.Id == item.AuthorId).First().FirstName + " " + authors.Where(a => a.Id == item.AuthorId).First().LastName;
+            string genre = genres.Where(g => g.Id == item.GenreId).First().Name;
+            <tr>
+                <td scope="row">@author</td>
+                <td scope="row">@item.Title</td>
+                <td scope="row">@item.Pages</td>
+                <td scope="row">@item.Price</td>
+                <td scope="row">@genre</td>
+             
+                <td scope="row">@Ajax.ActionLink("Delete book", "Delete", "Book", new { id = @item.Id }, new AjaxOptions() { UpdateTargetId = "bookList", HttpMethod = "POST" })</td>
+            </tr>
+        }
+</table>
