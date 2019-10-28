@@ -1,11 +1,10 @@
 ﻿<link href="~/Content/style.css" rel="stylesheet" />
 
-
-<table class="table">
-    <thead>
+<table class="table table-stripped">
+    <thead class="thead-dark">
         <tr>
-            <th scope="col">Фамилия</th>
             <th scope="col">Имя</th>
+            <th scope="col">Фамилия</th>
 
         </tr>
     </thead>
@@ -13,13 +12,13 @@
         <tr>
             @foreach (var item in ViewBag.Authors)
             {
-        <tr>
-            <th scope="row">@item.LastName</th>
-            <th scope="row">@item.FirstName</th>
+            <tr>
+                <th scope="row">@item.LastName</th>
+                <th scope="row">@item.FirstName</th>
 
-            <td>@Ajax.ActionLink("Edit", "Edit", new { id = item.Id }, new AjaxOptions { UpdateTargetId = "edit_author" })</td>
-            <td>@Ajax.ActionLink("Delete", "Delete", new { id = item.Id }, new AjaxOptions { UpdateTargetId = "delete_author" })</td>
-        </tr>
+                <td>@Ajax.ActionLink("Edit", "Edit", new { id = item.Id }, new AjaxOptions { UpdateTargetId = "edit_author" })</td>
+                <td>@Ajax.ActionLink("Delete", "Delete", new { id = item.Id }, new AjaxOptions { UpdateTargetId = "delete_author" })</td>
+            </tr>
 
         }
     </table>
