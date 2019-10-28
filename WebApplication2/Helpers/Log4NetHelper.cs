@@ -1,4 +1,6 @@
-﻿using System;
+﻿using log4net;
+using log4net.Config;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -20,4 +22,19 @@ namespace WebApplication2.Helpers
             _log.Warn(message);
         }
     }
+
+    //public static class Log4NetHelper
+    //{
+    //    private static ILog log = LogManager.GetLogger("Log4NetHelper");
+
+    //    public static ILog Log
+    //    {
+    //        get { return log; }
+    //    }
+
+    //    public static void InitLogger()
+    //    {
+    //        XmlConfigurator.Configure();
+    //    }
+    //}
 }
