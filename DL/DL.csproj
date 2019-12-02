@@ -43,6 +43,9 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
@@ -61,33 +64,9 @@
     <Compile Include="Entities\Model1.cs" />
     <Compile Include="Entities\Orders.cs" />
     <Compile Include="Entities\Users.cs" />
-    <Compile Include="Migrations\201909031416489_AddNameBookAuthor.cs" />
-    <Compile Include="Migrations\201909031416489_AddNameBookAuthor.Designer.cs">
-      <DependentUpon>201909031416489_AddNameBookAuthor.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201909210958441_AddDateBook.cs" />
-    <Compile Include="Migrations\201909210958441_AddDateBook.Designer.cs">
-      <DependentUpon>201909210958441_AddDateBook.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201909231406024_FixedDatabase.cs" />
-    <Compile Include="Migrations\201909231406024_FixedDatabase.Designer.cs">
-      <DependentUpon>201909231406024_FixedDatabase.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201909261010016_addGenres.cs" />
-    <Compile Include="Migrations\201909261010016_addGenres.Designer.cs">
-      <DependentUpon>201909261010016_addGenres.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201909271132008_addImageBook.cs" />
-    <Compile Include="Migrations\201909271132008_addImageBook.Designer.cs">
-      <DependentUpon>201909271132008_addImageBook.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201910040901531_changeTypePeriod.cs" />
-    <Compile Include="Migrations\201910040901531_changeTypePeriod.Designer.cs">
-      <DependentUpon>201910040901531_changeTypePeriod.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201910081402583_deleteNameBook.cs" />
-    <Compile Include="Migrations\201910081402583_deleteNameBook.Designer.cs">
-      <DependentUpon>201910081402583_deleteNameBook.cs</DependentUpon>
+    <Compile Include="Migrations\201912020522474_createDatabase.cs" />
+    <Compile Include="Migrations\201912020522474_createDatabase.Designer.cs">
+      <DependentUpon>201912020522474_createDatabase.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="MyInitializer.cs" />
@@ -103,26 +82,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201909031416489_AddNameBookAuthor.resx">
-      <DependentUpon>201909031416489_AddNameBookAuthor.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201909210958441_AddDateBook.resx">
-      <DependentUpon>201909210958441_AddDateBook.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201909231406024_FixedDatabase.resx">
-      <DependentUpon>201909231406024_FixedDatabase.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201909261010016_addGenres.resx">
-      <DependentUpon>201909261010016_addGenres.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201909271132008_addImageBook.resx">
-      <DependentUpon>201909271132008_addImageBook.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201910040901531_changeTypePeriod.resx">
-      <DependentUpon>201910040901531_changeTypePeriod.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201910081402583_deleteNameBook.resx">
-      <DependentUpon>201910081402583_deleteNameBook.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201912020522474_createDatabase.resx">
+      <DependentUpon>201912020522474_createDatabase.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
